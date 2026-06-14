@@ -4,7 +4,8 @@ description: >
   Use this skill to install BIRDCC editor plugins and the @birdcc/cli (birdcc) command-line toolkit.
   Trigger when the user asks how to install the BIRD LSP extension, BIRD2 syntax highlighting,
   birdcc CLI, or any BIRD editor plugin. Do NOT trigger for CI/CD questions; use birdcc-cicd for
-  setup-birdcc and GitHub Actions.
+  setup-birdcc and GitHub Actions. Do NOT trigger for BIRD config editing or diagnostics; use
+  bird-agent for those.
 compatibility: Requires uv/uvx and internet access for Marketplace/OpenVSX/npm links.
 metadata:
   author: bird-chinese-community
