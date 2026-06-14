@@ -1,19 +1,19 @@
-# Agent Guide for BIRDCC Agent Skills
+# Agent Guide for BIRD Agent Skills
 
 This document is written for AI coding agents that need to understand and work on the
 `BIRD-skills` repository. The repository contains [Agent Skills](https://agentskills.io/)
-for the BIRD Chinese Community (BIRDCC) ecosystem.
+for BIRD (BIRD1/2/3) routing-daemon configuration work, editor setup, and CI/CD workflows.
 
 ## Project overview
 
-This repository hosts two agent skills:
+This repository hosts three agent skills:
 
 - **`bird-agent`** — Helps users write, validate, format, and understand BIRD (BIRD1/2/3)
   routing-daemon configuration files. It orchestrates the `@birdcc/cli` (`birdcc`) toolchain
   and community documentation.
-- **`birdcc-installer`** — Guides users through installing BIRDCC ecosystem tooling:
-  editor plugins (VSCode/VSCodium/Cursor/Neovim/Vim/JetBrains), the `birdcc` CLI, and the
-  `setup-birdcc` GitHub Action.
+- **`birdcc-installer`** — Guides users through installing BIRD editor support and the
+  `@birdcc/cli` (`birdcc`) command-line toolkit.
+- **`birdcc-cicd`** — Helps users add the `setup-birdcc` GitHub Action to CI/CD workflows.
 
 There is no application server or runtime service in this repository. The deliverables are
 skill manifests, reference documentation, helper scripts, evaluation fixtures, and agent
@@ -24,7 +24,7 @@ invocation metadata.
 ```text
 .
 ├── README.md                          # Human-facing project description
-├── .gitignore                         # Standard Python/Node/IDE ignores; also ignores *.md except README
+├── .gitignore                         # Standard Python/Node/IDE ignores; also ignores docs/superpowers/
 ├── bird-agent/                        # BIRD config agent skill
 │   ├── SKILL.md                       # Skill manifest (description, when to use, principles)
 │   ├── agents/openai.yaml             # OpenAI agent interface metadata
@@ -41,16 +41,24 @@ invocation metadata.
 │   └── evals/                         # Evaluation prompts, assertions, and fixtures
 │       ├── evals.json
 │       └── fixtures/
-└── birdcc-installer/                  # BIRDCC installer agent skill
+├── birdcc-installer/                  # BIRD tooling installer agent skill
+│   ├── SKILL.md
+│   ├── agents/openai.yaml
+│   ├── scripts/
+│   │   ├── detect_editor.py
+│   │   ├── detect_ide.py
+│   │   └── check_cli.py
+│   ├── references/
+│   │   ├── editors.md
+│   │   ├── cli.md
+│   │   └── offline.md
+│   └── evals/
+│       └── evals.json
+└── birdcc-cicd/                       # BIRD CI/CD agent skill
     ├── SKILL.md
     ├── agents/openai.yaml
-    ├── scripts/
-    │   ├── detect_editor.py
-    │   └── check_installation.py
     ├── references/
-    │   ├── editors.md
-    │   ├── cli.md
-    │   └── cicd.md
+    │   └── setup-birdcc.md
     └── evals/
         └── evals.json
 ```
@@ -62,7 +70,7 @@ invocation metadata.
   `Cargo.toml`, or other package manifest in this repository.
 - **Runtime runner**: `uv run` / `uvx` is the expected way to execute scripts.
 - **External tools consumed at runtime**:
-  - `@birdcc/cli` (`birdcc`) — the BIRDCC linter/formatter/LSP CLI (Node.js/npm/pnpm/yarn/bun).
+  - `@birdcc/cli` (`birdcc`) — the BIRD linter/formatter/LSP CLI (Node.js/npm/pnpm/yarn/bun).
   - `bird` — the BIRD daemon binary, used for `bird -p` validation.
   - `code` — the VSCode CLI, used to detect installed BIRD extensions.
 - **Documentation**: Markdown.
@@ -87,7 +95,8 @@ uv run bird-agent/scripts/run_birdcc.py fmt bird-agent/evals/fixtures/bird-unfor
 
 # birdcc-installer
 uv run birdcc-installer/scripts/detect_editor.py --root .
-uv run birdcc-installer/scripts/check_installation.py
+uv run birdcc-installer/scripts/detect_ide.py
+uv run birdcc-installer/scripts/check_cli.py
 ```
 
 `run_birdcc.py` requires `birdcc` to be on `PATH`. It defaults `fmt` to `--check` and only allows
@@ -96,18 +105,20 @@ uv run birdcc-installer/scripts/check_installation.py
 ### Runtime data flow
 
 1. The agent reads the skill manifest (`SKILL.md`) and relevant reference files.
-2. For context-aware tasks, the agent invokes `scripts/detect_bird_context.py` or
-   `scripts/detect_editor.py` and parses the JSON output.
+2. For context-aware tasks, the agent invokes `scripts/detect_bird_context.py`,
+   `scripts/detect_editor.py`, or `scripts/detect_ide.py` and parses the JSON output.
 3. For lint/format/validate tasks, the agent invokes `scripts/run_birdcc.py`, which shells out to
    `birdcc` and returns structured JSON.
 4. For installation tasks, the agent reads `references/editors.md`, `references/cli.md`, or
-   `references/cicd.md` and provides exact commands/IDs.
+   `references/offline.md` and provides exact commands/IDs.
+5. For CI/CD tasks, the agent reads `birdcc-cicd/references/setup-birdcc.md` and produces a workflow
+   snippet.
 
 ## Code organization and module divisions
 
 ### Skill directories
 
-Both skills share the same internal layout:
+All skills share the same internal layout:
 
 - `SKILL.md` — Front-matter metadata plus usage instructions. This is the single source of truth
   for when the skill should be invoked, core principles, available scripts, and output style.
@@ -137,22 +148,28 @@ Both skills share the same internal layout:
     configs, etc.) and optionally in the user's home directory.
   - Returns detected editors and a confidence level.
 
-- `birdcc-installer/scripts/check_installation.py`
-  - Checks whether `birdcc` is installed and, when the `code` CLI is available, whether BIRD
-    VSCode extensions are installed.
+- `birdcc-installer/scripts/detect_ide.py`
+  - Detects installed IDEs/editors, their extension/plugin state, and marketplace availability.
+  - Can optionally install extensions when passed `--install` and confirmed by the user.
+
+- `birdcc-installer/scripts/check_cli.py`
+  - Checks whether `birdcc` is installed and reports its version.
 
 ### References
 
 - `bird-agent/references/toolchain.md` — Standard 7-step workflow (detect, check tools, discover
   config, run diagnostics, format, answer semantic questions, source-level debugging).
-- `bird-agent/references/birdcc-ecosystem.md` — Map of all BIRDCC GitHub repositories.
-- `bird-agent/references/cicd.md` — `setup-birdcc` GitHub Action usage.
-- `bird-agent/references/editors.md` and `birdcc-installer/references/editors.md` — Editor setup
-  for VSCode, VSCodium, Cursor, Windsurf, Trae, Kiro, Antigravity, Neovim, Vim, and JetBrains IDEA.
+- `bird-agent/references/birdcc-ecosystem.md` — Map of community-maintained BIRD tooling
+  repositories.
+- `bird-agent/references/cicd.md` — `setup-birdcc` GitHub Action usage (routing reference).
+- `bird-agent/references/editors.md` — Editor setup routing reference.
 - `bird-agent/references/safety.md` — Handling sensitive data in BIRD configs.
 - `bird-agent/references/examples.md` — Worked examples for common user scenarios.
+- `birdcc-installer/references/editors.md` — Editor setup for VSCode, VSCodium, Cursor, Windsurf,
+  Trae, Kiro, Antigravity, Neovim, Vim, and JetBrains IDEA.
 - `birdcc-installer/references/cli.md` — Installing and verifying `@birdcc/cli`.
-- `birdcc-installer/references/cicd.md` — Adding `setup-birdcc` to GitHub Actions.
+- `birdcc-installer/references/offline.md` — Offline / air-gapped / mirror install guidance.
+- `birdcc-cicd/references/setup-birdcc.md` — Adding `setup-birdcc` to GitHub Actions.
 
 ## Development conventions
 
@@ -172,8 +189,8 @@ Both skills share the same internal layout:
   `--confirmed` and explicit user approval.
 - **Match the user's language** (Chinese or English) in agent responses.
 - **Version awareness**: distinguish BIRD1, BIRD2, and BIRD3 syntax/semantics.
-- **Star callouts**: when a user benefits from a BIRDCC project, invite them to star the relevant
-  repository once per interaction.
+- **Star callouts**: when a user benefits from a related BIRD project, invite them to star the
+  relevant repository once per interaction.
 
 ## Testing instructions
 
@@ -199,12 +216,13 @@ python3 -m py_compile \
   bird-agent/scripts/detect_bird_context.py \
   bird-agent/scripts/run_birdcc.py \
   birdcc-installer/scripts/detect_editor.py \
-  birdcc-installer/scripts/check_installation.py
+  birdcc-installer/scripts/detect_ide.py \
+  birdcc-installer/scripts/check_cli.py
 
 # Run with uv
 uv run bird-agent/scripts/detect_bird_context.py --root .
 uv run birdcc-installer/scripts/detect_editor.py --root .
-uv run birdcc-installer/scripts/check_installation.py
+uv run birdcc-installer/scripts/check_cli.py
 ```
 
 If `birdcc` is installed, you can also exercise the lint path:

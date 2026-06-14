@@ -5,43 +5,222 @@
       "id": 1,
       "name": "vscode-bird2-extension-install",
       "prompt": "How do I install BIRD2 support in VSCode? I want both syntax highlighting and LSP features like formatting and diagnostics.",
-      "expected_output": "Guide the user to install the BIRD2 Extension Pack or both BIRD2 Configuration (birdcc.vscode-bird2-conf) and BIRD2 LSP (birdcc.bird2-lsp) from the VSCode Marketplace. Include verification steps and Star links.",
-      "files": []
+      "expected_output": "Guide the user to install the BIRD2 LSP extension (birdcc.bird2-lsp) from the VSCode Marketplace. Include verification steps and a star link.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "mentions_bird2_lsp_extension",
+          "description": "The agent mentions the birdcc.bird2-lsp extension ID.",
+          "check": "file_contains",
+          "target": "transcript.md",
+          "expected": "birdcc.bird2-lsp"
+        },
+        {
+          "name": "provides_install_command",
+          "description": "The agent gives a command-line install option.",
+          "check": "file_contains_any",
+          "target": "transcript.md",
+          "expected": [
+            "code --install-extension",
+            "marketplace.visualstudio.com/items?itemName=birdcc.bird2-lsp"
+          ]
+        },
+        {
+          "name": "mentions_lsp_capabilities",
+          "description": "The agent mentions formatting and/or diagnostics capabilities.",
+          "check": "file_contains_any",
+          "target": "transcript.md",
+          "expected": [
+            "format",
+            "diagnostic",
+            "lint",
+            "LSP"
+          ]
+        }
+      ]
     },
     {
       "id": 2,
       "name": "vscodium-openvsx-install",
       "prompt": "I'm using VSCodium. How do I install the BIRD2 plugins? The Microsoft Marketplace doesn't work for me.",
-      "expected_output": "Direct the user to OpenVSX: BIRDCC.vscode-bird2-conf and birdcc.bird2-lsp. Mention that VSCodium, Cursor, Windsurf, Trae, Kiro, and Antigravity use OpenVSX. Include verification and Star links.",
-      "files": []
+      "expected_output": "Direct the user to OpenVSX for birdcc.bird2-lsp. Mention that VSCodium, Cursor, Windsurf, Trae, Kiro, and Antigravity use OpenVSX. Include verification and a star link.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "mentions_openvsx",
+          "description": "The agent mentions OpenVSX as the source.",
+          "check": "file_contains",
+          "target": "transcript.md",
+          "expected": "OpenVSX"
+        },
+        {
+          "name": "mentions_bird2_lsp_extension",
+          "description": "The agent mentions the birdcc.bird2-lsp extension ID.",
+          "check": "file_contains",
+          "target": "transcript.md",
+          "expected": "birdcc.bird2-lsp"
+        },
+        {
+          "name": "mentions_vscodium_or_fork",
+          "description": "The agent mentions VSCodium or another OpenVSX-based fork.",
+          "check": "file_contains_any",
+          "target": "transcript.md",
+          "expected": [
+            "VSCodium",
+            "Cursor",
+            "Windsurf",
+            "Trae",
+            "Kiro",
+            "Antigravity"
+          ]
+        }
+      ]
     },
     {
       "id": 3,
       "name": "neovim-highlight-only",
       "prompt": "How do I get BIRD2 syntax highlighting in Neovim with lazy.nvim? Do I get LSP diagnostics too?",
       "expected_output": "Provide the lazy.nvim snippet for bird-chinese-community/BIRD2.nvim and explicitly state that only syntax highlighting is available. Mention that LSP diagnostics require manually wiring birdcc lsp --stdio with an LSP client.",
-      "files": []
+      "files": [],
+      "assertions": [
+        {
+          "name": "mentions_bird2_nvim_repo",
+          "description": "The agent mentions the BIRD2.nvim plugin repository.",
+          "check": "file_contains",
+          "target": "transcript.md",
+          "expected": "BIRD2.nvim"
+        },
+        {
+          "name": "mentions_lazy_nvim",
+          "description": "The agent provides a lazy.nvim-style configuration snippet or reference.",
+          "check": "file_contains",
+          "target": "transcript.md",
+          "expected": "lazy"
+        },
+        {
+          "name": "clarifies_no_builtin_lsp",
+          "description": "The agent clarifies that the plugin provides highlighting only, not full LSP.",
+          "check": "file_contains_any",
+          "target": "transcript.md",
+          "expected": [
+            "highlight only",
+            "only syntax",
+            "not include LSP",
+            "no LSP",
+            "manually"
+          ]
+        }
+      ]
     },
     {
       "id": 4,
       "name": "vim-highlight-only",
       "prompt": "I use Vim with vim-plug. How do I add BIRD2 syntax highlighting?",
       "expected_output": "Provide the vim-plug line for bird-chinese-community/bird2.vim, mention Vundle and manual install options, and clarify that only highlighting is available.",
-      "files": []
+      "files": [],
+      "assertions": [
+        {
+          "name": "mentions_bird2_vim_repo",
+          "description": "The agent mentions the bird2.vim plugin repository.",
+          "check": "file_contains",
+          "target": "transcript.md",
+          "expected": "bird2.vim"
+        },
+        {
+          "name": "mentions_vim_plug",
+          "description": "The agent mentions vim-plug or another Vim plugin manager.",
+          "check": "file_contains_any",
+          "target": "transcript.md",
+          "expected": [
+            "vim-plug",
+            "Plug",
+            "Vundle",
+            "pathogen"
+          ]
+        },
+        {
+          "name": "clarifies_highlight_only",
+          "description": "The agent clarifies that Vim support is highlighting-only.",
+          "check": "file_contains_any",
+          "target": "transcript.md",
+          "expected": [
+            "highlight only",
+            "only syntax",
+            "no LSP"
+          ]
+        }
+      ]
     },
     {
       "id": 5,
       "name": "jetbrains-idea-textmate-import",
       "prompt": "Can I use BIRD2 syntax highlighting in IntelliJ IDEA? If so, how?",
-      "expected_output": "Explain that IDEA has no native plugin and only syntax highlighting is supported. Provide the TextMate Bundle import steps using the vscode-bird2 .vsix from OpenVSX.",
-      "files": []
+      "expected_output": "Explain whether a JetBrains plugin is available and provide the preferred install method (Marketplace or .zip/.jar). Clarify current LSP vs highlighting support.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "mentions_jetbrains_marketplace_or_plugin",
+          "description": "The agent mentions JetBrains Marketplace, a plugin ID, or an install archive.",
+          "check": "file_contains_any",
+          "target": "transcript.md",
+          "expected": [
+            "JetBrains Marketplace",
+            "dev.birdcc.idea",
+            "Settings | Plugins",
+            "Marketplace"
+          ]
+        },
+        {
+          "name": "sets_capability_expectation",
+          "description": "The agent states whether highlighting and/or LSP is supported.",
+          "check": "file_contains_any",
+          "target": "transcript.md",
+          "expected": [
+            "highlighting",
+            "LSP",
+            "lint",
+            "format"
+          ]
+        }
+      ]
     },
     {
       "id": 6,
       "name": "birdcc-cli-install",
       "prompt": "How do I install the birdcc CLI on macOS? I prefer not to install it globally if possible.",
       "expected_output": "Offer npm install -g, npx @birdcc/cli, and local dev-dependency options. Include verification commands birdcc --version and a quick lint example.",
-      "files": []
+      "files": [],
+      "assertions": [
+        {
+          "name": "mentions_npx_option",
+          "description": "The agent offers npx / pnpm dlx / yarn dlx as a non-global option.",
+          "check": "file_contains_any",
+          "target": "transcript.md",
+          "expected": [
+            "npx",
+            "pnpm dlx",
+            "yarn dlx"
+          ]
+        },
+        {
+          "name": "mentions_local_dev_dependency",
+          "description": "The agent offers a local devDependency install option.",
+          "check": "file_contains_any",
+          "target": "transcript.md",
+          "expected": [
+            "dev dependency",
+            "-D",
+            "--save-dev"
+          ]
+        },
+        {
+          "name": "mentions_verification_command",
+          "description": "The agent suggests verifying the installation with birdcc --version or similar.",
+          "check": "file_contains",
+          "target": "transcript.md",
+          "expected": "birdcc --version"
+        }
+      ]
     }
   ]
 }

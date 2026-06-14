@@ -6,7 +6,100 @@
       "name": "setup-birdcc-action",
       "prompt": "I want to lint and validate my BIRD2 config in GitHub Actions. Is there an official action?",
       "expected_output": "Recommend bird-chinese-community/setup-birdcc with a minimal workflow, mention BIRD_BIN output, and include a BIRD2/3 matrix example.",
-      "files": []
+      "files": [],
+      "assertions": [
+        {
+          "name": "mentions_setup_birdcc_action",
+          "description": "The agent recommends the bird-chinese-community/setup-birdcc GitHub Action.",
+          "check": "file_contains",
+          "target": "workflow.md",
+          "expected": "bird-chinese-community/setup-birdcc"
+        },
+        {
+          "name": "includes_fmt_check",
+          "description": "The workflow snippet includes birdcc fmt --check.",
+          "check": "file_contains",
+          "target": "workflow.md",
+          "expected": "birdcc fmt --check"
+        },
+        {
+          "name": "includes_lint_step",
+          "description": "The workflow snippet includes birdcc lint.",
+          "check": "file_contains",
+          "target": "workflow.md",
+          "expected": "birdcc lint"
+        },
+        {
+          "name": "mentions_bird_version",
+          "description": "The workflow configures a BIRD version (2 and/or 3).",
+          "check": "file_contains_any",
+          "target": "workflow.md",
+          "expected": [
+            "bird-version:",
+            "bird-version: \"2\"",
+            "bird-version: \"3\""
+          ]
+        },
+        {
+          "name": "uses_actions_checkout",
+          "description": "The workflow checks out the repository before running setup-birdcc.",
+          "check": "file_contains",
+          "target": "workflow.md",
+          "expected": "actions/checkout"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "pnpm-cache-workflow",
+      "prompt": "Our repo uses pnpm and we want to lint BIRD configs on every PR. Can you give us a complete GitHub Actions workflow that caches pnpm dependencies?",
+      "expected_output": "Provide a workflow that uses actions/checkout, bird-chinese-community/setup-birdcc with caching options, birdcc fmt --check, and birdcc lint.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "uses_setup_birdcc_action",
+          "description": "The workflow uses bird-chinese-community/setup-birdcc.",
+          "check": "file_contains",
+          "target": "workflow.md",
+          "expected": "bird-chinese-community/setup-birdcc"
+        },
+        {
+          "name": "mentions_pnpm_cache",
+          "description": "The workflow or explanation mentions pnpm caching.",
+          "check": "file_contains_any",
+          "target": "workflow.md",
+          "expected": [
+            "cache-turbo",
+            "cache-pnpm",
+            "pnpm cache",
+            "cache:"
+          ]
+        },
+        {
+          "name": "includes_fmt_check",
+          "description": "The workflow includes birdcc fmt --check.",
+          "check": "file_contains",
+          "target": "workflow.md",
+          "expected": "birdcc fmt --check"
+        },
+        {
+          "name": "includes_lint_step",
+          "description": "The workflow includes birdcc lint.",
+          "check": "file_contains",
+          "target": "workflow.md",
+          "expected": "birdcc lint"
+        },
+        {
+          "name": "triggers_on_pr_or_push",
+          "description": "The workflow triggers on pull_request and/or push.",
+          "check": "file_contains_any",
+          "target": "workflow.md",
+          "expected": [
+            "pull_request:",
+            "push:"
+          ]
+        }
+      ]
     }
   ]
 }

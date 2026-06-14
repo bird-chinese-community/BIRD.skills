@@ -4,7 +4,7 @@
     {
       "id": 1,
       "name": "missing-semicolon-diagnosis",
-      "prompt": "I have a BIRD2 config file at /Users/nana/Documents/code/BIRDCC/BIRD-LSP/.worktrees/feat/agent-skills/.agents/skills/bird-agent/evals/fixtures/bird.conf. When I run `bird -p -c bird.conf` it fails with a syntax error but I don't understand the message. Can you help me find and fix the problem?",
+      "prompt": "I have a BIRD2 config file at bird-agent/evals/fixtures/bird.conf. When I run `bird -p -c bird.conf` it fails with a syntax error but I don't understand the message. Can you help me find and fix the problem?",
       "expected_output": "Run birdcc lint on the file, identify the missing semicolon after 'router id 192.0.2.1', and propose a corrected snippet.",
       "files": [
         "evals/fixtures/bird.conf"
@@ -15,7 +15,7 @@
           "description": "The agent invoked birdcc lint on the fixture file.",
           "check": "file_contains",
           "target": "transcript.md",
-          "expected": "node /Users/nana/Documents/code/BIRDCC/BIRD-LSP/packages/@birdcc/cli/dist/cli.js lint"
+          "expected": "birdcc lint"
         },
         {
           "name": "identified_missing_semicolon",
@@ -54,7 +54,7 @@
     {
       "id": 2,
       "name": "format-preview",
-      "prompt": "Please format my BIRD config at /Users/nana/Documents/code/BIRDCC/BIRD-LSP/.worktrees/feat/agent-skills/.agents/skills/bird-agent/evals/fixtures/bird-unformatted.conf. I want to see what changes the formatter would make before you actually write them.",
+      "prompt": "Please format my BIRD config at bird-agent/evals/fixtures/bird-unformatted.conf. I want to see what changes the formatter would make before you actually write them.",
       "expected_output": "Run birdcc fmt --check on the file, show the diff or formatted output, and ask for confirmation before running birdcc fmt --write.",
       "files": [
         "evals/fixtures/bird-unformatted.conf"
@@ -152,7 +152,7 @@
     {
       "id": 4,
       "name": "cross-file-include-diagnosis",
-      "prompt": "I have a BIRD config at /Users/nana/Documents/code/BIRDCC/BIRD-LSP/.worktrees/feat/agent-skills/.agents/skills/bird-agent/evals/fixtures/cross-file/main.conf. birdcc lint reports errors that seem to come from an included file. Can you tell me which file has the real problem and what the fix is?",
+      "prompt": "I have a BIRD config at bird-agent/evals/fixtures/cross-file/main.conf. birdcc lint reports errors that seem to come from an included file. Can you tell me which file has the real problem and what the fix is?",
       "expected_output": "Run birdcc lint on main.conf with cross-file resolution, identify that peers.conf has a missing semicolon after 'local as 64512', and explain that include statements propagate diagnostics from the included file.",
       "files": [
         "evals/fixtures/cross-file/main.conf",
