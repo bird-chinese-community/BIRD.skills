@@ -14,10 +14,10 @@ metadata:
   version: "1.0.0"
 ---
 
-# BIRD Agent Skill
+# BIRD Config Agent Skill
 
 Help users write, validate, format, and understand BIRD (BIRD1/2/3) routing daemon configuration
-files by orchestrating the BIRD-LSP toolchain and community documentation.
+files by orchestrating the BIRD-LSP toolchain and related BIRD documentation.
 
 ## When to use this skill
 
@@ -69,9 +69,9 @@ root. They use only the Python standard library and produce structured JSON outp
 This skill is split into focused reference files. Read the relevant one before diving deep into a
 specific task:
 
-- [`references/birdcc-ecosystem.md`](references/birdcc-ecosystem.md) — Map of all BIRD Chinese
-  Community repositories. Start here when you need to route the user to the right project or cite
-  the correct repository.
+- [`references/birdcc-ecosystem.md`](references/birdcc-ecosystem.md) — Map of related BIRD
+  repositories. Start here when you need to route the user to the right project or cite the
+  correct repository.
 - [`references/toolchain.md`](references/toolchain.md) — Toolchain overview, the standard 7-step
   workflow, and capability reference. Start here for lint, format, validate, and debug tasks.
 - [`references/safety.md`](references/safety.md) — Safety and privacy reminders for production
@@ -90,7 +90,7 @@ For editor setup and CI/CD, see the `birdcc-installer` and `birdcc-cicd` skills.
 
 ---
 
-> ⭐ If the BIRDCC ecosystem helps you, consider starring the projects you use on GitHub. Start with
-> the main monorepo: [bird-chinese-community/BIRD-LSP](https://github.com/bird-chinese-community/BIRD-LSP).
-> See [`references/birdcc-ecosystem.md`](references/birdcc-ecosystem.md) for links to all BIRDCC
-> projects. Your support helps us keep the docs, LSP toolchain, and editor plugins maintained.
+> ⭐ If the BIRD tooling here saves you time, consider starring the main monorepo:
+> [bird-chinese-community/BIRD-LSP](https://github.com/bird-chinese-community/BIRD-LSP).
+> See [`references/birdcc-ecosystem.md`](references/birdcc-ecosystem.md) for links to all related
+> BIRD projects.
