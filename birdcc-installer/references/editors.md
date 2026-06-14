@@ -7,14 +7,15 @@ asks how to install a BIRD plugin, extension, or syntax highlighter.
 
 | Editor | Syntax highlighting | LSP (lint/format/hover) | How to install |
 |--------|--------------------|------------------------|----------------|
-| VSCode | ✅ `birdcc.vscode-bird2-conf` | ✅ `birdcc.bird2-lsp` | Marketplace / extension pack |
-| VSCodium / Cursor / Windsurf / Trae / Kiro / Antigravity | ✅ `BIRDCC.vscode-bird2-conf` | ✅ `birdcc.bird2-lsp` | OpenVSX |
+| VSCode | ✅ `birdcc.bird2-lsp` | ✅ `birdcc.bird2-lsp` | Visual Studio Marketplace / CLI |
+| VSCodium / Cursor / Windsurf / Trae / Kiro / Antigravity | ✅ `birdcc.bird2-lsp` | ✅ `birdcc.bird2-lsp` | OpenVSX / CLI |
 | Neovim | ✅ `BIRD2.nvim` | ❌ (highlight only) | lazy.nvim / packer |
 | Vim | ✅ `BIRD2.vim` | ❌ (highlight only) | vim-plug / Vundle / manual |
-| JetBrains IDEA | ✅ via TextMate Bundle import | ❌ (highlight only) | Import VSCode `.vsix` |
+| JetBrains IDEA / WebStorm / PyCharm / GoLand / CLion | ✅ `dev.birdcc.idea` | ✅ `dev.birdcc.idea` | JetBrains Marketplace / CLI |
 
 Always set expectations: only VSCode and its OpenVSX-based forks currently have a full LSP
-experience. Neovim, Vim, and JetBrains users get syntax highlighting only.
+experience out of the box. Neovim and Vim users get syntax highlighting only; JetBrains support
+depends on the BIRDCC plugin release status.
 
 ## Detecting the user's editor
 
@@ -51,33 +52,46 @@ Then provide the matching section below.
 
 ## VSCode
 
-### Option A: install the full BIRD2 Extension Pack
+### Option A: install via command line
+
+```bash
+code --install-extension birdcc.bird2-lsp
+```
+
+### Option B: install from the Extensions panel
 
 1. Open Extensions (`Ctrl+Shift+X` / `Cmd+Shift+X`).
-2. Search for **BIRD2 Extension Pack** from `BIRDCC`.
+2. Search for **BIRD2 LSP** from `birdcc`.
 3. Install it.
 
-### Option B: install components separately
-
-1. Install **BIRD2 Configuration** (`birdcc.vscode-bird2-conf`) for syntax highlighting.
-2. Install **BIRD2 LSP** (`birdcc.bird2-lsp`) for diagnostics, formatting, and hover docs.
-
-Marketplace links:
-- Syntax highlighting: https://marketplace.visualstudio.com/items?itemName=birdcc.vscode-bird2-conf
-- LSP: https://marketplace.visualstudio.com/items?itemName=birdcc.bird2-lsp
+Marketplace link:
+- https://marketplace.visualstudio.com/items?itemName=birdcc.bird2-lsp
 
 ## VSCode forks (VSCodium, Cursor, Windsurf, Trae, Kiro, Antigravity)
 
-These editors use the OpenVSX registry:
+These editors use the OpenVSX registry (or a configured private gallery):
+
+### Option A: install via command line
+
+```bash
+# VSCodium
+codium --install-extension birdcc.bird2-lsp
+
+# Cursor
+cursor --install-extension birdcc.bird2-lsp
+
+# Windsurf / Trae / Kiro / Antigravity
+windsurf --install-extension birdcc.bird2-lsp
+```
+
+### Option B: install from the Extensions panel
 
 1. Open Extensions.
-2. Search for **BIRD2 Extension Pack** or install separately:
-   - **BIRD2 Configuration** (`BIRDCC.vscode-bird2-conf`)
-   - **BIRD2 LSP** (`birdcc.bird2-lsp`)
+2. Search for **BIRD2 LSP** from `birdcc`.
+3. Install it.
 
-OpenVSX links:
-- Syntax highlighting: https://open-vsx.org/extension/BIRDCC/vscode-bird2-conf
-- LSP: https://open-vsx.org/extension/birdcc/bird2-lsp
+OpenVSX link:
+- https://open-vsx.org/extension/birdcc/bird2-lsp
 
 ## Neovim
 
@@ -124,22 +138,29 @@ bash scripts/install.sh
 
 Repository: https://github.com/bird-chinese-community/bird2.vim
 
-## JetBrains IDEA / WebStorm / PyCharm / etc.
+## JetBrains IDEA / WebStorm / PyCharm / GoLand / CLion
 
-> ⚠️ JetBrains does not have a native BIRD plugin. Syntax highlighting only, via TextMate Bundle
-> import from the VSCode `.vsix`.
+BIRDCC provides a JetBrains plugin on the JetBrains Marketplace.
 
-1. Open the OpenVSX page for `BIRDCC/vscode-bird2-conf`:
-   https://open-vsx.org/extension/BIRDCC/vscode-bird2-conf
-2. Download the latest `.vsix` from **Resources**.
-3. Extract the `.vsix` archive.
-4. Locate the directory containing `package.json`.
-5. In IDEA: **Settings/Preferences → Editor → TextMate Bundles**.
-6. Click **+** (Add) and select that directory.
-7. Confirm `bird2` appears in the language list and check it.
-8. Restart IDEA.
+### Option A: install via command line (IDE must be closed)
 
-Repository for the grammar: https://github.com/bird-chinese-community/BIRD-tm-language-grammar
+```bash
+idea installPlugins dev.birdcc.idea
+```
+
+### Option B: install from the IDE
+
+1. Open **Settings/Preferences → Plugins**.
+2. Search for **BIRDCC** or use Plugin ID `dev.birdcc.idea`.
+3. Install and restart the IDE.
+
+JetBrains Marketplace link:
+- https://plugins.jetbrains.com/plugin/dev.birdcc.idea
+
+### Fallback: TextMate Bundle import
+
+If the marketplace is unavailable, import the VSCode TextMate grammar as described in the
+[`offline.md`](offline.md) reference.
 
 ## Verifying editor support
 
@@ -154,6 +175,11 @@ If nothing happens:
 2. For VSCode LSP, open Output (`Ctrl+Shift+U` / `Cmd+Shift+U`) and select **BIRD2 LSP** to check
    server logs.
 3. For Neovim/Vim, run `:set filetype?` and verify it says `bird2`.
+
+## Offline / 企业环境
+
+If the marketplace is unavailable, see [`offline.md`](offline.md) for VSIX / plugin zip / private
+registry installation. This is a fallback, not the default path.
 
 ## Final output template
 
