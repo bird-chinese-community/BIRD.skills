@@ -1,14 +1,13 @@
 ---
 name: bird-agent
 description: >
-  Use this skill for BIRD (BIRD1/2/3) routing daemon configurations: files named bird.conf,
+  Use this skill for BIRD (BIRD1/2/3) routing daemon configuration work: files named bird.conf,
   bird2.conf, bird3.conf, or bird6.conf; pasted snippets with BIRD syntax like protocol, filter,
-  function, table, local as, neighbor, route, prefix, bgp_path, community, import, export, ipv4,
-  ipv6; mentions of birdcc, @birdcc/cli, setup-birdcc, vscode-bird2, bird2-lsp, BIRD2.nvim,
-  BIRD2.vim, bird2-autotype, or BIRD Chinese docs; and requests about linting, formatting,
-  bird -p validation, cross-file includes, editor setup, CI/CD, or BIRD keywords/commands.
-  Trigger even if the user doesn't say "BIRD" explicitly. Do NOT trigger for Cisco, Juniper, FRR,
-  nginx, bird biology, or "bird" outside a BIRD routing context.
+  function, table, local as, neighbor, route, prefix, bgp_path, community, import, export; and
+  requests about linting, formatting, bird -p validation, cross-file includes, or BIRD
+  keywords/commands. For editor plugin installation use birdcc-installer; for GitHub Actions use
+  birdcc-cicd. Trigger even if the user doesn't say "BIRD" explicitly. Do NOT trigger for Cisco,
+  Juniper, FRR, nginx, bird biology, or "bird" outside a BIRD routing context.
 compatibility: Requires uv/uvx and internet access for Marketplace/npm/GitHub links.
 metadata:
   author: bird-chinese-community
@@ -27,9 +26,11 @@ files by orchestrating the BIRD-LSP toolchain and community documentation.
 - The user mentions BIRD, BIRD2, BIRD3, BGP, OSPF, RIP, RADV, Static, Kernel, Device, Perf, RPKI,
   Babel, Aggregator, or MRT protocols in a configuration context.
 - The user reports a syntax error, diagnostic, or wants to format a BIRD configuration.
-- The user asks for help setting up CI/CD validation for BIRD configs (e.g., GitHub Actions).
 - The user wants to know what a BIRD keyword, function, filter, protocol, or CLI command does.
 - The user shares a BIRD configuration snippet and asks for review, optimization, or explanation.
+
+> For editor plugin installation, use the `birdcc-installer` skill. For GitHub Actions or CI/CD,
+> use the `birdcc-cicd` skill.
 
 ## Core principles
 
@@ -63,7 +64,7 @@ root. They use only the Python standard library and produce structured JSON outp
   `--write --confirmed` after the user explicitly approves. Config paths are validated to
   stay inside `--root`.
 
-## Reference guide
+## Reference guides
 
 This skill is split into focused reference files. Read the relevant one before diving deep into a
 specific task:
@@ -73,13 +74,11 @@ specific task:
   the correct repository.
 - [`references/toolchain.md`](references/toolchain.md) — Toolchain overview, the standard 7-step
   workflow, and capability reference. Start here for lint, format, validate, and debug tasks.
-- [`references/cicd.md`](references/cicd.md) — GitHub Actions integration with `setup-birdcc`.
-  Use when the user asks about CI/CD or automated validation.
-- [`references/editors.md`](references/editors.md) — Editor setup for VSCode, Vim, Neovim, JetBrains,
-  and terminal editors. Use when the user asks how to get BIRD support in their editor.
 - [`references/safety.md`](references/safety.md) — Safety and privacy reminders for production
   configs. Read before the user shares sensitive data.
 - [`references/examples.md`](references/examples.md) — Worked examples for common scenarios.
+
+For editor setup and CI/CD, see the `birdcc-installer` and `birdcc-cicd` skills.
 
 ## Output style
 
