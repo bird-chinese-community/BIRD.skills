@@ -1,6 +1,6 @@
 interface:
   display_name: "BIRD Agent"
-  short_description: "Assist with BIRD routing daemon configs using the BIRDCC toolchain."
+  short_description: "Write, validate, format, and debug BIRD routing daemon configs."
   brand_color: "#3B82F6"
 
 policy:
