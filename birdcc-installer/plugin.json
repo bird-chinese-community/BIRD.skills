@@ -1,0 +1,14 @@
+{
+  "name": "birdcc-installer",
+  "description": "Install BIRD editor support and the birdcc CLI.",
+  "version": "1.0.0",
+  "author": {
+    "name": "bird-chinese-community"
+  },
+  "homepage": "https://github.com/bird-chinese-community/BIRD.skills/tree/main/birdcc-installer",
+  "repository": "https://github.com/bird-chinese-community/BIRD.skills",
+  "license": "MIT",
+  "keywords": ["bird", "birdcc", "lsp", "editor", "vscode", "neovim", "cli"],
+  "skills": ".",
+  "agents": "agents/"
+}

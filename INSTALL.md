@@ -2,11 +2,11 @@
 
 There are three ways to install these skills. Pick the one that matches your agent harness:
 
-| Method             | Best for                                                                                                                          | What you get                                                   |
-| ------------------ | --------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
-| **Plugin install** | Harnesses that support plugins (Claude Code, Codex CLI, Antigravity, Gemini CLI, Kimi Code, Pi, Factory Droid)       | Native install for a single harness; pick the skills you want. |
-| **Skills install** | Any harness supported by `skills.sh` (universal `.agents/skills` plus 60+ agents including Cursor, OpenCode, Kimi Code CLI, etc.) | One command, then choose which agents receive the skills.      |
-| **Manual install** | Platforms not covered by plugin or `skills.sh`                                                                                    | Copy or symlink the skill folders yourself.                    |
+| Method             | Best for                                                                                                                           | What you get                                                   |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| **Plugin install** | Harnesses that support plugins (Claude Code, GitHub Copilot CLI, Codex CLI, Antigravity, Gemini CLI, Kimi Code, Pi, Factory Droid) | Native install for a single harness; pick the skills you want. |
+| **Skills install** | Any harness supported by `skills.sh` (universal `.agents/skills` plus 60+ agents including Cursor, OpenCode, Kimi Code CLI, etc.)  | One command, then choose which agents receive the skills.      |
+| **Manual install** | Platforms not covered by plugin or `skills.sh`                                                                                     | Copy or symlink the skill folders yourself.                    |
 
 > **Recommendation:**
 >
@@ -25,6 +25,26 @@ Plugins give you a native install for a specific harness. They let you install t
 ### Claude Code
 
 ```bash
+/plugin marketplace add bird-chinese-community/BIRD.skills
+/plugin install bird-agent@bird-skills
+/plugin install birdcc-installer@bird-skills
+/plugin install birdcc-cicd@bird-skills
+```
+
+### GitHub Copilot CLI
+
+Add this repository as a plugin marketplace, then install the skills you want:
+
+```bash
+copilot plugin marketplace add bird-chinese-community/BIRD.skills
+copilot plugin install bird-agent@bird-skills
+copilot plugin install birdcc-installer@bird-skills
+copilot plugin install birdcc-cicd@bird-skills
+```
+
+In an interactive Copilot session you can also use:
+
+```text
 /plugin marketplace add bird-chinese-community/BIRD.skills
 /plugin install bird-agent@bird-skills
 /plugin install birdcc-installer@bird-skills

@@ -1,0 +1,25 @@
+{
+  "name": "bird-skills",
+  "description": "Agent skills for BIRD routing daemon configuration, editor setup, and CI/CD workflows.",
+  "version": "1.0.0",
+  "author": {
+    "name": "bird-chinese-community"
+  },
+  "homepage": "https://github.com/bird-chinese-community/BIRD.skills",
+  "repository": "https://github.com/bird-chinese-community/BIRD.skills",
+  "license": "MIT",
+  "keywords": [
+    "bird",
+    "bird2",
+    "bird3",
+    "routing",
+    "bgp",
+    "ospf",
+    "birdcc",
+    "lsp",
+    "cicd",
+    "github-actions"
+  ],
+  "skills": ["./bird-agent", "./birdcc-installer", "./birdcc-cicd"],
+  "agents": ["./bird-agent/agents", "./birdcc-installer/agents", "./birdcc-cicd/agents"]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "birdcc-cicd",
+  "description": "Add setup-birdcc to GitHub Actions workflows.",
+  "version": "1.0.0",
+  "author": {
+    "name": "bird-chinese-community"
+  },
+  "homepage": "https://github.com/bird-chinese-community/BIRD.skills/tree/main/birdcc-cicd",
+  "repository": "https://github.com/bird-chinese-community/BIRD.skills",
+  "license": "MIT",
+  "keywords": ["bird", "birdcc", "cicd", "github-actions", "lint", "fmt"],
+  "skills": ".",
+  "agents": "agents/"
+}
