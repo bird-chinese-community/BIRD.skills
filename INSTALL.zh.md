@@ -4,15 +4,18 @@
 
 | 安装方式        | 适用平台                                                                                                     | 说明                                                    |
 | --------------- | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------- |
-| **Plugin 安装** | 支持插件的平台（Claude Code、Codex CLI、Antigravity、Gemini CLI、Kimi Code、Pi、Factory Droid、Copilot CLI） | 推荐首选；可安装整个 bundle，也可以只启用需要的 skill。 |
-| **Skills 安装** | 任何支持 Agent Skills 的平台 (包括以上平台及 GitHub Copilot、Cursor、Amp 等)                                 | 一行命令快速安装全部 skills。                           |
-| **手动安装**    | 其他确实不支持插件或 skills 的平台                                                                           | 手动复制或软链 skill 目录。                             |
+| **Plugin 安装** | 支持插件的平台（Claude Code、Codex CLI、Antigravity、Gemini CLI、Kimi Code、Pi、Factory Droid、Copilot CLI） | 针对单个 Agent 的原生安装；可选择需要的 skill。        |
+| **Skills 安装** | `skills.sh` 支持的任意 Agent（通用 `.agents/skills` 及 17+ 个 Agent，包括 Cursor、OpenCode、Kimi Code CLI 等） | 一行命令安装，然后选择要部署到哪些 Agent。            |
+| **手动安装**    | 不被 plugin 或 `skills.sh` 覆盖的极少数平台                                                                  | 手动复制或软链 skill 目录。                             |
 
-> **建议：** 优先尝试 **Plugin 安装**，控制权最大；如果你的平台不支持插件，退回到 **Skills 安装**；两者都不行时再使用 **手动安装**。
+> **建议：**
+> - 如果你跨多个 Agent 使用，优先用 **Skills 安装**——安装一次即可选择分发到哪些 Agent。
+> - 如果你只在一个 Agent 中使用且想要原生 plugin 体验，用 **Plugin 安装**。
+> - 两者都不支持时，才使用 **手动安装**。
 
 ## Plugin 安装
 
-Plugin 是首选安装方式。它可以安装整个 bundle，然后只启用你需要的 skill。如果同时使用多个 Agent 平台，请分别在每个平台中安装。
+Plugin 针对特定 Agent 提供原生安装。它可以安装整个 bundle，然后只启用你需要的 skill。如果同时使用多个 Agent 平台，请分别在每个平台中安装。
 
 ### Claude Code
 
@@ -118,7 +121,7 @@ pi -e /path/to/BIRD.skills
 如果你的平台不支持 plugin，可以使用 `skills.sh` 作为快速降级方案。该命令会一次性安装全部三个 skills：
 
 ```bash
-npx skills add bird-chinese-community/BIRD.skills
+npx skills@latest add bird-chinese-community/BIRD.skills
 ```
 
 你仍然可以在 Agent 设置中单独禁用不需要的 skill。

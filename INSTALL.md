@@ -4,15 +4,18 @@ There are three ways to install these skills. Pick the one that matches your age
 
 | Method             | Best for                                                                                                         | What you get                                                        |
 | ------------------ | ---------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| **Plugin install** | Harnesses that support plugins (Claude Code, Codex CLI, Antigravity, Gemini CLI, Kimi Code, Pi, Factory Droid, Copilot CLI) | The full bundle; install all skills or pick only the ones you need. |
-| **Skills install** | Any harness that supports Agent Skills (including the above, plus GitHub Copilot, Cursor, Amp, etc.)                       | A quick one-line install of all skills.                             |
-| **Manual install** | Other platforms that genuinely do not support plugins or skills                                                         | Copy or symlink the skill folders yourself.                         |
+| **Plugin install** | Harnesses that support plugins (Claude Code, Codex CLI, Antigravity, Gemini CLI, Kimi Code, Pi, Factory Droid, Copilot CLI) | Native install for a single harness; pick the skills you want.      |
+| **Skills install** | Any harness supported by `skills.sh` (universal `.agents/skills` plus 17+ agents including Cursor, OpenCode, Kimi Code CLI, etc.) | One command, then choose which agents receive the skills.           |
+| **Manual install** | Platforms not covered by plugin or `skills.sh`                                                                          | Copy or symlink the skill folders yourself.                         |
 
-> **Recommendation:** Try the **plugin install** first. It gives you the most control. If your harness does not support plugins, fall back to **skills install**. Use **manual install** only when neither of the above works.
+> **Recommendation:**
+> - Use **skills install** if you work across multiple agents — it installs once and lets you select which agents get the skills.
+> - Use **plugin install** if you want the native plugin experience for a single agent.
+> - Use **manual install** only when neither of the above covers your harness.
 
 ## Plugin install
 
-Plugins are the preferred way to install. They let you install the whole bundle and then enable only the skills you want. If you use multiple harnesses, install the plugin in each one separately.
+Plugins give you a native install for a specific harness. They let you install the whole bundle and then enable only the skills you want. If you use multiple harnesses, install the plugin in each one separately.
 
 ### Claude Code
 
