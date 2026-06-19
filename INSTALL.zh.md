@@ -118,3 +118,7 @@ npx skills add bird-chinese-community/BIRD.skills
 ### 手动安装
 
 如果 plugin 和 `skills.sh` 都不适用（例如 Cursor、Kimi Code 或 OpenCode），请克隆本仓库，然后将需要的 skill 目录复制或软链到 Agent 的 skills 目录（例如 `~/.claude/skills/`、`~/.codex/skills/`、`.agents/skills/`）。
+
+---
+
+> 后续更新时，重新运行对应平台的安装命令即可。手动安装则 `git pull` 后重新复制或软链 skill 目录。

@@ -118,3 +118,7 @@ You can still disable individual skills in your harness settings if you only nee
 ### Manual install
 
 If neither plugins nor `skills.sh` work for your harness (for example, Cursor, Kimi Code, or OpenCode), clone the repo and copy or symlink the skill folders into your agent's skills directory (e.g. `~/.claude/skills/`, `~/.codex/skills/`, `.agents/skills/`).
+
+---
+
+> To update later, re-run the install command for your harness. For manual installs, `git pull` and re-copy or re-symlink the skill folders.
