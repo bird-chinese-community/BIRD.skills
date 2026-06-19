@@ -34,7 +34,9 @@ Agent 会自动匹配对应 Skill，按需运行 `birdcc lint` / `fmt`、通过 
 
 ## 安装方式
 
-让你的 Agent 阅读 [`INSTALL.md`](./INSTALL.md) 或 [`INSTALL.zh.md`](./INSTALL.zh.md)，并根据当前 Agent 平台完成安装。
+```prompt
+阅读 https://raw.githubusercontent.com/bird-chinese-community/BIRD.skills/main/INSTALL.zh.md 并根据我的 Agent 平台安装 BIRD skills。
+```
 
 
 ## 安全提示

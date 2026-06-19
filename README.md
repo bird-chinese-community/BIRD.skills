@@ -34,7 +34,9 @@ The agent will use the right skill, run `birdcc lint` / `fmt`, validate with `bi
 
 ## Installation
 
-Ask your agent to read [`INSTALL.md`](./INSTALL.md) and install the BIRD skills for your harness.
+```prompt
+Read https://raw.githubusercontent.com/bird-chinese-community/BIRD.skills/main/INSTALL.md and install the BIRD skills for my harness.
+```
 
 
 ## Security
