@@ -156,7 +156,7 @@
       "id": 6,
       "name": "birdcc-cli-install",
       "prompt": "How do I install the birdcc CLI on macOS? I prefer not to install it globally if possible.",
-      "expected_output": "Offer npm install -g, npx @birdcc/cli, and local dev-dependency options. Include verification commands birdcc --version and a quick lint example.",
+      "expected_output": "Offer npm install -g, npx -y @birdcc/cli@latest, and local dev-dependency options. Include verification commands birdcc --version and a quick lint example.",
       "files": [],
       "assertions": [
         {

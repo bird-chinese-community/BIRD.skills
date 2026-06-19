@@ -4,18 +4,18 @@ This reference describes the BIRD-LSP toolchain, the standard workflow for assis
 
 ## Toolchain overview
 
-| Tool | Purpose | When to use | Project |
-|------|---------|-------------|----------------|
-| `@birdcc/cli` (`birdcc`) | Lint, format, validate, and start the LSP server. | Always check if it is available first. | [`BIRD-LSP`](https://github.com/bird-chinese-community/BIRD-LSP) |
-| `@birdcc/formatter` | Rust-backed code formatter (dprint plugin + builtin). | Use via `birdcc fmt`. | [`BIRD-LSP`](https://github.com/bird-chinese-community/BIRD-LSP) |
-| `@birdcc/linter` | 32+ static analysis rules + cross-file resolution. | Use via `birdcc lint`. | [`BIRD-LSP`](https://github.com/bird-chinese-community/BIRD-LSP) |
-| `@birdcc/parser` | Tree-sitter parser and AST adapter. | Indirectly used by lint/fmt. | [`BIRD-LSP`](https://github.com/bird-chinese-community/BIRD-LSP) |
-| `bird -p` | BIRD runtime parse check. | Use when `bird` is installed, or via Docker. | — |
-| `setup-birdcc` GitHub Action | CI/CD integration for GitHub workflows. | Use when the user asks about CI (see `references/cicd.md`). | [`setup-birdcc`](https://github.com/bird-chinese-community/setup-birdcc) |
-| BIRD documentation | Official docs and BIRD Chinese Community translations. | Use for semantic questions and examples. | [`bird-document-converter`](https://github.com/bird-chinese-community/bird-document-converter), [`bird-doc-markdown`](https://github.com/bird-chinese-community/bird-doc-markdown) |
-| `bird.xmsl.dev/llms.txt` | Structured index of BIRD Chinese docs. | Use for quick document navigation. | [`bird-doc-markdown`](https://github.com/bird-chinese-community/bird-doc-markdown) |
-| Context7 MCP | RAG over BIRD Chinese docs. | Use for deep semantic questions. | [`bird-doc-markdown`](https://github.com/bird-chinese-community/bird-doc-markdown) |
-| DeepWiki `CZ-NIC/bird` | Source-level analysis of the BIRD daemon. | Use when linter/docs cannot explain a behavior. | — |
+| Tool                         | Purpose                                                | When to use                                                 | Project                                                                                                                                                                            |
+| ---------------------------- | ------------------------------------------------------ | ----------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `@birdcc/cli` (`birdcc`)     | Lint, format, validate, and start the LSP server.      | Always check if it is available first.                      | [`BIRD-LSP`](https://github.com/bird-chinese-community/BIRD-LSP)                                                                                                                   |
+| `@birdcc/formatter`          | Rust-backed code formatter (dprint plugin + builtin).  | Use via `birdcc fmt`.                                       | [`BIRD-LSP`](https://github.com/bird-chinese-community/BIRD-LSP)                                                                                                                   |
+| `@birdcc/linter`             | 32+ static analysis rules + cross-file resolution.     | Use via `birdcc lint`.                                      | [`BIRD-LSP`](https://github.com/bird-chinese-community/BIRD-LSP)                                                                                                                   |
+| `@birdcc/parser`             | Tree-sitter parser and AST adapter.                    | Indirectly used by lint/fmt.                                | [`BIRD-LSP`](https://github.com/bird-chinese-community/BIRD-LSP)                                                                                                                   |
+| `bird -p`                    | BIRD runtime parse check.                              | Use when `bird` is installed, or via Docker.                | —                                                                                                                                                                                  |
+| `setup-birdcc` GitHub Action | CI/CD integration for GitHub workflows.                | Use when the user asks about CI (see `references/cicd.md`). | [`setup-birdcc`](https://github.com/bird-chinese-community/setup-birdcc)                                                                                                           |
+| BIRD documentation           | Official docs and BIRD Chinese Community translations. | Use for semantic questions and examples.                    | [`bird-document-converter`](https://github.com/bird-chinese-community/bird-document-converter), [`bird-doc-markdown`](https://github.com/bird-chinese-community/bird-doc-markdown) |
+| `bird.xmsl.dev/llms.txt`     | Structured index of BIRD Chinese docs.                 | Use for quick document navigation.                          | [`bird-doc-markdown`](https://github.com/bird-chinese-community/bird-doc-markdown)                                                                                                 |
+| Context7 MCP                 | RAG over BIRD Chinese docs.                            | Use for deep semantic questions.                            | [`bird-doc-markdown`](https://github.com/bird-chinese-community/bird-doc-markdown)                                                                                                 |
+| DeepWiki `CZ-NIC/bird`       | Source-level analysis of the BIRD daemon.              | Use when linter/docs cannot explain a behavior.             | —                                                                                                                                                                                  |
 
 ## Workflow
 
@@ -42,13 +42,13 @@ If `birdcc` is missing, suggest installation:
 
 ```bash
 # Global install
-npm install -g @birdcc/cli
+npm install -g @birdcc/cli@latest
 
 # Or use npx (no install)
-npx @birdcc/cli --help
+npx -y @birdcc/cli@latest --help
 
 # Or pnpm in a monorepo
-pnpm add -D @birdcc/cli
+pnpm add -D @birdcc/cli@latest
 ```
 
 If the user is in the BIRD-LSP monorepo, prefer `pnpm --filter @birdcc/cli` or the built CLI at

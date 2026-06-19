@@ -22,21 +22,21 @@ yarn global add @birdcc/cli
 ### Option B: use npx without installing
 
 ```bash
-npx @birdcc/cli --help
-npx @birdcc/cli lint bird.conf
+npx -y @birdcc/cli@latest --help
+npx -y @birdcc/cli@latest lint bird.conf
 ```
 
 ### Option C: local dev dependency
 
 ```bash
 # pnpm
-pnpm add -D @birdcc/cli
+pnpm add -D @birdcc/cli@latest
 
 # npm
-npm install -D @birdcc/cli
+npm install -D @birdcc/cli@latest
 
 # yarn
-yarn add -D @birdcc/cli
+yarn add -D @birdcc/cli@latest
 ```
 
 After adding locally, run via package scripts or `pnpm exec birdcc` / `npx birdcc`.

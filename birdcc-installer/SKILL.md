@@ -94,10 +94,11 @@ not modify the system unless `--install` is explicitly passed.
 | Neovim plugin                                  | `lazy.nvim`: `{ "bird-chinese-community/BIRD2.nvim", ft = "bird2" }` |
 | Vim plugin                                     | `Plug 'bird-chinese-community/BIRD2.vim'`                            |
 | JetBrains plugin                               | `idea installPlugins dev.birdcc.idea`                                |
-| birdcc CLI via npm                             | `npm install -g @birdcc/cli`                                         |
-| birdcc CLI via pnpm                            | `pnpm add -g @birdcc/cli`                                            |
-| birdcc CLI via yarn                            | `yarn global add @birdcc/cli`                                        |
-| birdcc CLI via npx                             | `npx @birdcc/cli --help`                                             |
+| birdcc CLI via npm                             | `npm install -g @birdcc/cli@latest`                                  |
+| birdcc CLI via pnpm                            | `pnpm add -g @birdcc/cli@latest`                                     |
+| birdcc CLI via yarn                            | `yarn global add @birdcc/cli@latest`                                 |
+| birdcc CLI via npx                             | `npx -y @birdcc/cli@latest --help`                                   |
+| birdcc CLI via bun                             | `bun add -g @birdcc/cli@latest`                                      |
 
 ## CRITICAL: verify before installing
 

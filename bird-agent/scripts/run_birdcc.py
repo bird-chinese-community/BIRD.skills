@@ -145,7 +145,7 @@ def main(argv: list[str] | None = None) -> int:
     if shutil.which(args.birdcc) is None:
         return fail(
             "birdcc not found",
-            "Install with: npm install -g @birdcc/cli  (or npx @birdcc/cli)",
+            "Install with: npm install -g @birdcc/cli@latest (or npx -y @birdcc/cli@latest)",
             code=127,
         )
 
