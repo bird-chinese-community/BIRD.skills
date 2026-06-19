@@ -1,24 +1,59 @@
 ---
 name: bird-agent
 description: >
-  Use this skill for BIRD (BIRD1/2/3) routing daemon configuration work: files named bird.conf,
-  bird2.conf, bird3.conf, or bird6.conf; pasted snippets with BIRD syntax like protocol, filter,
-  function, table, local as, neighbor, route, prefix, bgp_path, community, import, export; and
-  requests about linting, formatting, bird -p validation, cross-file includes, or BIRD
-  keywords/commands. For editor plugin installation use birdcc-installer; for GitHub Actions use
-  birdcc-cicd. Trigger even if the user doesn't say "BIRD" explicitly. Do NOT trigger for Cisco,
-  Juniper, FRR, nginx, bird biology, or "bird" outside a BIRD routing context.
+  TRIGGER aggressively for BIRD (BIRD1/2/3) routing-daemon configuration work.
+  Positive signals:
+  - File patterns: bird.conf, bird2.conf, bird3.conf, bird6.conf, any *.conf file that
+    contains BIRD syntax, bird.config.json, and any file included by a BIRD config.
+  - Syntax tokens: protocol, filter, function, define, table, router id, local as, neighbor,
+    prefix, route, bgp_path, community, import, export, bgp_path.prepend, if defined(), path,
+    OSPF, BGP, RIP, RADV, Static, Kernel, Device, Perf, RPKI, Babel, Aggregator, MRT.
+  - Commands: birdcc lint, birdcc fmt, bird -p, birdc, bird -c, birdc configure.
+  - Requests: lint/format/validate a BIRD config, fix a syntax error or diagnostic, explain a
+    BIRD keyword/filter/protocol, review a config snippet, resolve cross-file includes, or
+    compare BIRD1/BIRD2/BIRD3 syntax.
+  Negative signals (do NOT trigger): Cisco IOS/IOS-XR/NX-OS, Juniper JunOS, FRRouting (frr.conf),
+    nginx, any non-routing use of "bird", bird biology / ornithology, or general networking
+    questions without a BIRD routing context.
+  For editor/CLI installation use birdcc-installer; for setup-birdcc or GitHub Actions use
+  birdcc-cicd. Trigger even if the user does not explicitly say "BIRD".
 compatibility: Requires uv/uvx and internet access for Marketplace/npm/GitHub links.
 license: MIT
 metadata:
   author: bird-chinese-community
   version: "1.0.0"
+  requires:
+    bins:
+      - birdcc
+      - bird
 ---
 
 # BIRD Config Agent Skill
 
 Help users write, validate, format, and understand BIRD (BIRD1/2/3) routing daemon configuration
 files by orchestrating the BIRD-LSP toolchain and related BIRD documentation.
+
+## Quick Reference
+
+| Task                       | Script / Command                                                       | Reference                 |
+| -------------------------- | ---------------------------------------------------------------------- | ------------------------- |
+| Discover BIRD config files | `uv run scripts/detect_bird_context.py --root .`                       | —                         |
+| Lint a config              | `uv run scripts/run_birdcc.py lint <file> --root .`                    | `references/toolchain.md` |
+| Check formatting           | `uv run scripts/run_birdcc.py fmt <file> --root .`                     | `references/toolchain.md` |
+| Apply formatting           | `uv run scripts/run_birdcc.py fmt <file> --root . --write --confirmed` | `references/toolchain.md` |
+| Runtime parse check        | `bird -p -c <file>`                                                    | `references/toolchain.md` |
+| Install editor / CLI       | Use the `birdcc-installer` skill                                       | `references/editors.md`   |
+| Add CI/CD                  | Use the `birdcc-cicd` skill                                            | `references/cicd.md`      |
+
+## CRITICAL
+
+> [!CRITICAL]
+>
+> 1. **Never auto-write user files.** `run_birdcc.py fmt` defaults to `--check`. Only pass
+>    `--write --confirmed` after the user explicitly approves modifying their config.
+> 2. **Sanitize configs before sharing.** BIRD configs contain AS numbers, peer IPs,
+>    authentication passwords, community strings, and route filters. Proactively warn the user
+>    to redact these before posting in public issues, PRs, chats, or pastebins.
 
 ## When to use this skill
 
@@ -44,13 +79,41 @@ files by orchestrating the BIRD-LSP toolchain and related BIRD documentation.
 3. **Version awareness.** BIRD1, BIRD2, and BIRD3 have syntax and semantic differences. Detect the
    version from the filename, `bird.config.json`, or the content when possible, and adjust commands
    and recommendations accordingly.
-4. **Validate before claiming correctness.** Always run `birdcc lint` or `bird -p` before telling the
-   user a configuration is valid.
+4. **Validate before claiming correctness.** Always run `birdcc lint` or `bird -p` before telling
+   the user a configuration is valid.
 5. **Respect sensitive data.** BIRD configs contain ASNs, IPs, passwords, and session secrets.
    Warn the user to sanitize configs before sharing them publicly or committing them.
 6. **Never auto-write formatted files.** `run_birdcc.py fmt` defaults to `--check`. Only use
    `--write --confirmed` after the user explicitly agrees to modify their config.
 
+## Workflow
+
+Follow this condensed workflow; see `references/toolchain.md` for the full 7-step guide,
+command matrix, and advanced source-level debugging.
+
+1. **Detect context** — run `scripts/detect_bird_context.py` to find `bird*.conf`,
+   `bird.config.json`, and `birdcc` availability.
+2. **Check tools** — verify `birdcc` is installed; optionally check `bird` for runtime parse
+   validation.
+3. **Discover config** — read `bird.config.json` if it exists, otherwise sniff the entry point
+   (`bird2.conf` > `bird.conf` > `bird3.conf`).
+4. **Run diagnostics** — run `birdcc lint` and/or `bird -p`. Include file path, line/column,
+   rule code, and suggested fix when reporting diagnostics.
+5. **Format or explain** — for formatting, default to `--check`; only write after approval. For
+   semantic questions, prefer BIRD Chinese Community docs in Chinese and official docs in English.
+6. **Route if needed** — editor setup → `birdcc-installer`; CI/CD → `birdcc-cicd`.
+
+### Completion criteria
+
+Before finishing a BIRD config task, confirm:
+
+- [ ] The relevant config file(s) were discovered and validated.
+- [ ] `birdcc lint` completed and all diagnostics were reported (or no diagnostics were found).
+- [ ] If formatting was requested, the user explicitly approved `--write` or `--write --confirmed`.
+- [ ] If `bird` is available, `bird -p` parse check passed (or failures were explained).
+- [ ] Sensitive data (ASNs, peer IPs, passwords, community strings) was not shared publicly, or
+      the user was warned to sanitize first.
+- [ ] The user received a clear next step or actionable fix.
 
 ## Available scripts
 

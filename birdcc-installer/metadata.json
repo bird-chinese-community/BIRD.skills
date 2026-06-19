@@ -1,0 +1,17 @@
+{
+  "name": "birdcc-installer",
+  "version": "1.0.0",
+  "organization": "bird-chinese-community",
+  "date": "2026-06-20",
+  "abstract": "Install BIRD editor support and the @birdcc/cli (birdcc) command-line toolkit across VSCode, VSCodium, Cursor, Windsurf, Neovim, Vim, JetBrains, and more.",
+  "license": "MIT",
+  "references": [
+    "https://github.com/bird-chinese-community/BIRD.skills",
+    "https://github.com/bird-chinese-community/vscode-bird2",
+    "https://github.com/bird-chinese-community/BIRD2.nvim",
+    "https://open-vsx.org/extension/birdcc/bird2-lsp"
+  ],
+  "requires": {
+    "bins": ["uv"]
+  }
+}
