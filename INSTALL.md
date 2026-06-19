@@ -147,10 +147,10 @@ After installation, you can still disable individual skills in your harness sett
 
 If neither plugins nor `skills.sh` work for your harness (for example, Cursor or OpenCode):
 
-1. Clone this repository locally:
+1. Clone this repository locally (use `--recurse-submodules` so the `bird-docs-query-mcp` MCP server is available):
 
    ```bash
-   git clone https://github.com/bird-chinese-community/BIRD.skills
+   git clone --recurse-submodules https://github.com/bird-chinese-community/BIRD.skills
    ```
 
 2. Symlink the skill folders you need into your agent's skills directory (e.g. `~/.claude/skills/`, `~/.codex/skills/`, `~/.agents/skills/`, `~/.cursor/skills/`).

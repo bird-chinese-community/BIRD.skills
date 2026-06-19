@@ -1,0 +1,3 @@
+[submodule "bird-agent/mcp/bird-docs-query-mcp"]
+	path = bird-agent/mcp/bird-docs-query-mcp
+	url = https://github.com/bird-chinese-community/bird-docs-query-mcp.git

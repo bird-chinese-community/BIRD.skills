@@ -100,7 +100,8 @@ command matrix, and advanced source-level debugging.
 4. **Run diagnostics** — run `birdcc lint` and/or `bird -p`. Include file path, line/column,
    rule code, and suggested fix when reporting diagnostics.
 5. **Format or explain** — for formatting, default to `--check`; only write after approval. For
-   semantic questions, prefer BIRD Chinese Community docs in Chinese and official docs in English.
+   semantic questions, call the `query_bird_docs` MCP tool with the user's query, language, and
+   inferred BIRD version. Prefer the returned Chinese docs in Chinese and English docs in English.
 6. **Route if needed** — editor setup → `birdcc-installer`; CI/CD → `birdcc-cicd`.
 
 ### Completion criteria

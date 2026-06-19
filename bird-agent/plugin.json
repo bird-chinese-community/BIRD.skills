@@ -10,5 +10,6 @@
   "license": "MIT",
   "keywords": ["bird", "bird2", "bird3", "routing", "bgp", "ospf", "birdcc", "config"],
   "skills": ".",
-  "agents": "agents/"
+  "agents": "agents/",
+  "mcpServers": ".mcp.json"
 }

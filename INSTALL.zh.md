@@ -147,10 +147,10 @@ npx -y skills@latest add bird-chinese-community/BIRD.skills --skill bird-agent -
 
 如果 plugin 和 `skills.sh` 都不适用（例如 Cursor 或 OpenCode），请：
 
-1. 克隆本仓库到本地：
+1. 克隆本仓库到本地（请加上 `--recurse-submodules`，否则 `bird-docs-query-mcp` MCP 子模块不可用）：
 
    ```bash
-   git clone https://github.com/bird-chinese-community/BIRD.skills
+   git clone --recurse-submodules https://github.com/bird-chinese-community/BIRD.skills
    ```
 
 2. 将需要的 skill 目录使用「软链」方式链接到 Agent 的 skills 目录（例如 `~/.claude/skills/`、`~/.codex/skills/`、`~/.agents/skills/`、`~/.cursor/skills/`）。

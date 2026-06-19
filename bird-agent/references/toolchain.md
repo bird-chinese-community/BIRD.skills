@@ -125,15 +125,11 @@ When using `--write`, make sure the file is tracked by version control or the us
 
 For questions about BIRD keywords, functions, protocols, or CLI commands:
 
-1. Search the local BIRD-LSP hover docs if available in the workspace
-   (`packages/@birdcc/lsp/src/hover-docs/` or similar).
-2. Use `bird.xmsl.dev/llms.txt` to locate the most relevant Chinese doc section.
-3. Use Context7 MCP to read the relevant page in depth when available.
-4. Fall back to the official BIRD documentation (`bird.network.cz`).
+1. Call the `query_bird_docs` MCP tool with the user's query, `lang`, and `version`.
+2. Use the returned URLs to read the relevant section (FetchURL / WebSearch / Context7).
+3. If the tool returns a fallback, try the suggested alternative source.
 
-When the user asks in Chinese, prefer the BIRD Chinese Community docs (`bird.xmsl.dev`) so the
-answer can cite the same sources the community maintains. When the user asks in English, prefer the
-official BIRD docs, but still mention the Chinese docs if they contain a clearer example.
+When the user asks in Chinese, prefer the returned Chinese docs; in English, prefer English docs.
 
 ### 7. Source-level debugging (advanced)
 
