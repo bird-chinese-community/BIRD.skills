@@ -5,16 +5,16 @@ There are three ways to install these skills. Pick the one that matches your age
 | Method             | Best for                                                                                                         | What you get                                                        |
 | ------------------ | ---------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | **Plugin install** | Harnesses that support plugins (Claude Code, Codex CLI, Antigravity, Gemini CLI, Kimi Code, Pi, Factory Droid, Copilot CLI) | The full bundle; install all skills or pick only the ones you need. |
-| **Skills install** | Any harness that supports `skills.sh`                                                                                     | A quick one-line install of all skills.                             |
-| **Manual install** | Harnesses without plugin or skills support (Cursor, OpenCode, etc.)                                                       | Copy or symlink the skill folders yourself.                         |
+| **Skills install** | Any harness that supports Agent Skills (including the above, plus GitHub Copilot, Cursor, Amp, etc.)                       | A quick one-line install of all skills.                             |
+| **Manual install** | Other platforms that genuinely do not support plugins or skills                                                         | Copy or symlink the skill folders yourself.                         |
 
 > **Recommendation:** Try the **plugin install** first. It gives you the most control. If your harness does not support plugins, fall back to **skills install**. Use **manual install** only when neither of the above works.
 
-### Plugin install
+## Plugin install
 
 Plugins are the preferred way to install. They let you install the whole bundle and then enable only the skills you want. If you use multiple harnesses, install the plugin in each one separately.
 
-#### Claude Code
+### Claude Code
 
 ```bash
 /plugin marketplace add bird-chinese-community/BIRD.skills
@@ -23,7 +23,7 @@ Plugins are the preferred way to install. They let you install the whole bundle 
 /plugin install birdcc-cicd@bird-skills
 ```
 
-#### Antigravity
+### Antigravity
 
 ```bash
 agy plugin install https://github.com/bird-chinese-community/BIRD.skills
@@ -31,7 +31,7 @@ agy plugin install https://github.com/bird-chinese-community/BIRD.skills
 
 Antigravity runs the plugin's session-start hook, so the skills are active from the first message. Reinstall with the same command to update.
 
-#### Codex App
+### Codex App
 
 Codex App shares plugin configuration with Codex CLI. Side-load via the CLI first, then the skills are available inside the App:
 
@@ -40,14 +40,14 @@ codex plugin marketplace add bird-chinese-community/BIRD.skills
 # Then inside Codex, use /plugins to install individual skills
 ```
 
-#### Codex CLI
+### Codex CLI
 
 ```bash
 codex plugin marketplace add bird-chinese-community/BIRD.skills
 # Then inside Codex, use /plugins to install individual skills
 ```
 
-#### Factory Droid
+### Factory Droid
 
 Register the marketplace:
 
@@ -63,7 +63,7 @@ droid plugin install birdcc-installer@BIRD.skills
 droid plugin install birdcc-cicd@BIRD.skills
 ```
 
-#### Gemini CLI
+### Gemini CLI
 
 Install the extension:
 
@@ -77,7 +77,7 @@ Update later:
 gemini extensions update BIRD.skills
 ```
 
-#### GitHub Copilot CLI
+### GitHub Copilot CLI
 
 Register the marketplace:
 
@@ -93,7 +93,7 @@ copilot plugin install birdcc-installer@bird-chinese-community/BIRD.skills
 copilot plugin install birdcc-cicd@bird-chinese-community/BIRD.skills
 ```
 
-#### Kimi Code
+### Kimi Code
 
 Open Kimi Code's plugin manager with `/plugins`, then install directly from this repository:
 
@@ -101,7 +101,7 @@ Open Kimi Code's plugin manager with `/plugins`, then install directly from this
 /plugins install https://github.com/bird-chinese-community/BIRD.skills
 ```
 
-#### Pi
+### Pi
 
 ```bash
 pi install git:github.com/bird-chinese-community/BIRD.skills
@@ -113,7 +113,7 @@ For local development, run Pi with this checkout loaded as a temporary package:
 pi -e /path/to/BIRD.skills
 ```
 
-### Skills install
+## Skills install
 
 If your harness does not support plugins, use `skills.sh` as a quick fallback. This installs all three skills at once:
 
@@ -123,10 +123,10 @@ npx skills add bird-chinese-community/BIRD.skills
 
 You can still disable individual skills in your harness settings if you only need some of them.
 
-### Manual install
+## Manual install
 
 If neither plugins nor `skills.sh` work for your harness (for example, Cursor or OpenCode), clone the repo and copy or symlink the skill folders into your agent's skills directory (e.g. `~/.claude/skills/`, `~/.codex/skills/`, `.agents/skills/`).
 
 ---
 
-> To update later, re-run the install command for your harness. For manual installs, `git pull` and re-copy or re-symlink the skill folders.
+> Tips: To update later, re-run the install command for your harness. For manual installs, `git pull` and re-copy or re-symlink the skill folders.
