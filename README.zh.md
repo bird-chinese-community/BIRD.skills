@@ -10,12 +10,15 @@
 
 ## 使用方式
 
-这些 skills 遵循 [Agent Skills](https://agentskills.io/) 约定。每个 skill 包含：
+这些 skills 遵循 [Agent Skills](https://agentskills.io/) 约定。大部分 skill 包含：
 
 - `SKILL.md` — Skill 清单与使用说明
 - `agents/openai.yaml` — OpenAI agent 调用元数据
 - `scripts/` — 仅使用 Python 标准库、可通过 `uv run` 运行的辅助脚本
 - `references/` — 聚焦的参考指南
+
+`birdcc-cicd` 没有 `scripts/` 目录，只提供 `SKILL.md`、`agents/openai.yaml`
+和 `references/`。
 
 ## 安装
 

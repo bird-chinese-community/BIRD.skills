@@ -13,12 +13,15 @@ This repository hosts agent skills for BIRD routing configuration, editor setup,
 ## Usage
 
 These skills follow the [Agent Skills](https://agentskills.io/)
-convention. Each skill includes:
+convention. Most skills include:
 
 - `SKILL.md` — Skill manifest and usage instructions
 - `agents/openai.yaml` — OpenAI agent invocation metadata
 - `scripts/` — PEP 723 stdlib-only helper scripts runnable with `uv run`
 - `references/` — Focused reference guides
+
+`birdcc-cicd` has no `scripts/` directory; it only provides `SKILL.md`,
+`agents/openai.yaml`, and `references/`.
 
 ## Installation
 

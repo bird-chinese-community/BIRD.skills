@@ -299,9 +299,9 @@
         },
         {
           "name": "mentioned_treesitter_grammar",
-          "description": "The agent referenced a Tree-sitter grammar or syntax plugin for BIRD in Neovim (in transcript.md or neovim-setup.md).",
+          "description": "The agent referenced a Tree-sitter grammar or syntax plugin for BIRD in Neovim (in transcript.md).",
           "check": "file_contains_any",
-          "target": "transcript.md or neovim-setup.md",
+          "target": "transcript.md",
           "expected": [
             "tree-sitter",
             "BIRD2.nvim",

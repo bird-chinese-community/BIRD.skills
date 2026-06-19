@@ -3,7 +3,7 @@
 # dependencies = []
 # ///
 
-"""Detect installed IDEs and generate marketplace-first onboarding data for BIRDCC."""
+"""Detect installed IDEs and generate marketplace-first onboarding data for birdcc."""
 
 from __future__ import annotations
 
@@ -18,8 +18,8 @@ import sys
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 
-BIRDCC_VSCODE_EXTENSION_ID = "birdcc.bird2-lsp"
-BIRDCC_JETBRAINS_PLUGIN_ID = "dev.birdcc.idea"
+BIRD_VSCODE_EXTENSION_ID = "birdcc.bird2-lsp"
+BIRD_JETBRAINS_PLUGIN_ID = "dev.birdcc.idea"
 
 
 @dataclass(frozen=True)
@@ -202,17 +202,26 @@ PRODUCTS: tuple[Product, ...] = (
 )
 
 
+def decode_output(data: bytes | None) -> str:
+    if data is None:
+        return ""
+    return data.decode("utf-8", errors="replace").strip()
+
+
 def run(cmd: list[str], timeout: int = 8) -> tuple[int, str, str]:
     try:
         p = subprocess.run(
             cmd,
-            text=True,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             timeout=timeout,
             check=False,
         )
-        return p.returncode, p.stdout.strip(), p.stderr.strip()
+        return p.returncode, decode_output(p.stdout), decode_output(p.stderr)
+    except subprocess.TimeoutExpired as exc:
+        stdout = decode_output(exc.stdout)
+        stderr = decode_output(exc.stderr)
+        return 124, stdout, f"command timed out after {timeout}s: {stderr}".strip()
     except Exception as exc:
         return 127, "", str(exc)
 
@@ -348,11 +357,17 @@ def marketplace_hint(product: Product, vscode_ext: str, jb_plugin: str) -> str:
     return f"在 {product.name} 的扩展面板搜索/安装：{vscode_ext}"
 
 
+def _is_numeric_plugin_id(plugin_id: str) -> bool:
+    return plugin_id.isdigit()
+
+
 def deep_link(product: Product, vscode_ext: str, jb_plugin: str) -> str | None:
     if product.family == "vscode-like":
         return f"{product.id}:extension/{vscode_ext}"
     if product.family == "jetbrains" and jb_plugin:
-        return f"https://plugins.jetbrains.com/plugin/{jb_plugin}"
+        if _is_numeric_plugin_id(jb_plugin):
+            return f"https://plugins.jetbrains.com/plugin/{jb_plugin}"
+        return f"https://plugins.jetbrains.com/search?search={jb_plugin}"
     return None
 
 
@@ -362,18 +377,18 @@ def agent_message(product: Product, status: str) -> str:
     if status == "installed":
         return (
             prefix
-            + "BIRDCC 插件已经安装，可以直接使用 BIRD 配置语法高亮、诊断、lint 与 Agent 协作能力。"
+            + "BIRD 插件已经安装，可以直接使用 BIRD 配置语法高亮、诊断、lint 与 Agent 协作能力。"
         )
 
     if product.family == "vscode-like":
         return (
             prefix
-            + "推荐安装 BIRDCC VS Code/OpenVSX 插件，用于 BIRD 配置语法高亮、诊断、lint、跳转和 AI Agent 辅助修改。"
+            + "推荐安装 BIRD VS Code/OpenVSX 插件，用于 BIRD 配置语法高亮、诊断、lint、跳转和 AI Agent 辅助修改。"
         )
 
     return (
         prefix
-        + "推荐安装 BIRDCC JetBrains 插件，让 IntelliJ 系列 IDE 也能接入 BIRDCC 的配置诊断与 Agent 工作流。"
+        + "推荐安装 BIRD JetBrains 插件，让 IntelliJ 系列 IDE 也能接入 birdcc 的配置诊断与 Agent 工作流。"
     )
 
 
@@ -401,7 +416,7 @@ def detect(product: Product, vscode_ext: str, jb_plugin: str) -> Detection | Non
         if not exe:
             item.extension_status = "unknown"
             item.notes.append(
-                "检测到应用，但没有检测到 CLI。可以引导用户安装 Shell Command，或在扩展面板中搜索 BIRDCC。"
+                "检测到应用，但没有检测到 CLI。可以引导用户安装 Shell Command，或在扩展面板中搜索 BIRD。"
             )
         else:
             installed = list_vscode_extensions(exe)
@@ -430,12 +445,39 @@ def detect(product: Product, vscode_ext: str, jb_plugin: str) -> Detection | Non
         else:
             item.extension_status = "unknown"
             item.notes.append(
-                "检测到 JetBrains 应用，但没有检测到可用 CLI。建议引导用户在 JetBrains Marketplace 中搜索 BIRDCC。"
+                "检测到 JetBrains 应用，但没有检测到可用 CLI。建议引导用户在 JetBrains Marketplace 中搜索 BIRD。"
             )
 
     item.marketplace_hint = marketplace_hint(product, vscode_ext, jb_plugin)
     item.agent_message = agent_message(product, item.extension_status)
     return item
+
+
+def build_pretty_text(detections: list[Detection]) -> str:
+    if not detections:
+        return "没有检测到支持的 IDE。"
+
+    lines: list[str] = []
+    for x in detections:
+        lines.append(f"\n{x.name} [{x.id}]")
+        lines.append(f"  marketplace: {x.marketplace}")
+        lines.append(f"  found_by: {x.found_by}")
+        lines.append(f"  status: {x.extension_status}")
+        if x.version:
+            lines.append(f"  version: {x.version}")
+        if x.executable:
+            lines.append(f"  cli: {x.executable}")
+        if x.app_path:
+            lines.append(f"  app: {x.app_path}")
+        if x.marketplace_hint:
+            lines.append(f"  hint: {x.marketplace_hint}")
+        if x.install_command:
+            lines.append(f"  install: {q(x.install_command)}")
+        if x.agent_message:
+            lines.append(f"  agent: {x.agent_message}")
+        for note in x.notes:
+            lines.append(f"  note: {note}")
+    return "\n".join(lines)
 
 
 def build_ui_directives(detections: list[Detection]) -> dict:
@@ -446,17 +488,17 @@ def build_ui_directives(detections: list[Detection]) -> dict:
         product = next((p for p in PRODUCTS if p.id == item.id), None)
         if product is None:
             continue
-        link = deep_link(product, BIRDCC_VSCODE_EXTENSION_ID, BIRDCC_JETBRAINS_PLUGIN_ID)
+        link = deep_link(product, BIRD_VSCODE_EXTENSION_ID, BIRD_JETBRAINS_PLUGIN_ID)
         if not link:
             continue
         buttons.append(
             {
                 "ide_id": item.id,
-                "title": f"在 {item.name} 中打开 BIRDCC 插件",
+                "title": f"在 {item.name} 中打开 BIRD 插件",
                 "description": (
-                    "一键唤起插件市场并直达 BIRDCC 扩展"
+                    "一键唤起插件市场并直达 BIRD 扩展"
                     if item.family == "vscode-like"
-                    else "访问 JetBrains Marketplace 获取 BIRDCC 插件"
+                    else "访问 JetBrains Marketplace 获取 BIRD 插件"
                 ),
                 "action_type": "open_url",
                 "url": link,
@@ -464,23 +506,28 @@ def build_ui_directives(detections: list[Detection]) -> dict:
         )
 
     return {
-        "message": "检测到你本地的开发环境。BIRDCC 提供对应 IDE 插件，可用于 BIRD 配置语法高亮、诊断、lint、跳转和 AI Agent 协作。是否需要我帮你打开插件市场页面？",
+        "message": "检测到你本地的开发环境。birdcc 提供对应 IDE 插件，可用于 BIRD 配置语法高亮、诊断、lint、跳转和 AI Agent 协作。是否需要我帮你打开插件市场页面？",
         "buttons": buttons,
     }
 
 
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(
-        description="Detect installed VS Code-like and JetBrains IDEs for BIRDCC plugin onboarding."
+        description="Detect installed VS Code-like and JetBrains IDEs for birdcc plugin onboarding."
     )
-    p.add_argument("--vscode-extension", default=BIRDCC_VSCODE_EXTENSION_ID)
-    p.add_argument("--jetbrains-plugin", default=BIRDCC_JETBRAINS_PLUGIN_ID)
+    p.add_argument("--vscode-extension", default=BIRD_VSCODE_EXTENSION_ID)
+    p.add_argument("--jetbrains-plugin", default=BIRD_JETBRAINS_PLUGIN_ID)
     p.add_argument(
         "--install",
         action="store_true",
-        help="Run install commands. Use only after explicit user confirmation.",
+        help="Run install commands. Requires --confirmed after explicit user approval.",
     )
-    p.add_argument("--pretty", action="store_true")
+    p.add_argument(
+        "--confirmed",
+        action="store_true",
+        help="Confirm that the user explicitly approved running external install commands.",
+    )
+    p.add_argument("--pretty", action="store_true", help="Include human-readable text in the JSON output.")
     args = p.parse_args(argv)
 
     detections = [
@@ -491,20 +538,28 @@ def main(argv: list[str] | None = None) -> int:
 
     install_results = []
     if args.install:
-        for item in detections:
-            if item.extension_status == "installed" or not item.install_command:
-                continue
-            rc, out, err = run(item.install_command, timeout=120)
+        if not args.confirmed:
             install_results.append(
                 {
-                    "id": item.id,
-                    "name": item.name,
-                    "command": q(item.install_command),
-                    "exit_code": rc,
-                    "stdout": out[-3000:],
-                    "stderr": err[-3000:],
+                    "error": "安装操作需要同时提供 --install 和 --confirmed。请先获得用户明确同意后再执行外部安装命令。",
+                    "skipped": True,
                 }
             )
+        else:
+            for item in detections:
+                if item.extension_status == "installed" or not item.install_command:
+                    continue
+                rc, out, err = run(item.install_command, timeout=120)
+                install_results.append(
+                    {
+                        "id": item.id,
+                        "name": item.name,
+                        "command": q(item.install_command),
+                        "exit_code": rc,
+                        "stdout": out[-3000:],
+                        "stderr": err[-3000:],
+                    }
+                )
 
     payload = {
         "purpose": "birdcc-ecosystem-onboarding",
@@ -534,30 +589,7 @@ def main(argv: list[str] | None = None) -> int:
     }
 
     if args.pretty:
-        if not detections:
-            print("没有检测到支持的 IDE。")
-            return 0
-
-        for x in detections:
-            print(f"\n{x.name} [{x.id}]")
-            print(f"  marketplace: {x.marketplace}")
-            print(f"  found_by: {x.found_by}")
-            print(f"  status: {x.extension_status}")
-            if x.version:
-                print(f"  version: {x.version}")
-            if x.executable:
-                print(f"  cli: {x.executable}")
-            if x.app_path:
-                print(f"  app: {x.app_path}")
-            if x.marketplace_hint:
-                print(f"  hint: {x.marketplace_hint}")
-            if x.install_command:
-                print(f"  install: {q(x.install_command)}")
-            if x.agent_message:
-                print(f"  agent: {x.agent_message}")
-            for note in x.notes:
-                print(f"  note: {note}")
-        return 0
+        payload["pretty"] = build_pretty_text(detections)
 
     json.dump(payload, sys.stdout, ensure_ascii=False, indent=2)
     print()

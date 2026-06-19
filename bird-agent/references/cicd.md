@@ -1,8 +1,8 @@
 # BIRD-LSP CI/CD Reference
 
 For detailed setup-birdcc workflow examples and CI guidance, see the
-[`birdcc-cicd`](../birdcc-cicd) skill and its
-[`references/setup-birdcc.md`](../birdcc-cicd/references/setup-birdcc.md).
+[`birdcc-cicd`](../../birdcc-cicd) skill and its
+[`references/setup-birdcc.md`](../../birdcc-cicd/references/setup-birdcc.md).
 
 Quick pointer:
 

@@ -11,7 +11,7 @@ asks how to install a BIRD plugin, extension, or syntax highlighter.
 | VSCodium / Cursor / Windsurf / Trae / Kiro / Antigravity | ✅ `birdcc.bird2-lsp` | ✅ `birdcc.bird2-lsp` | OpenVSX / CLI |
 | Neovim | ✅ `BIRD2.nvim` | ❌ (highlight only) | lazy.nvim / packer |
 | Vim | ✅ `BIRD2.vim` | ❌ (highlight only) | vim-plug / Vundle / manual |
-| JetBrains IDEA / WebStorm / PyCharm / GoLand / CLion | ✅ `dev.birdcc.idea` | ✅ `dev.birdcc.idea` | JetBrains Marketplace / CLI |
+| JetBrains IDEA / WebStorm / PyCharm / GoLand / CLion | ✅ `dev.birdcc.idea` | ⚠️ depends on plugin release | JetBrains Marketplace / CLI |
 
 Always set expectations: only VSCode and its OpenVSX-based forks currently have a full LSP
 experience out of the box. Neovim and Vim users get syntax highlighting only; JetBrains support
@@ -65,6 +65,10 @@ code --install-extension birdcc.bird2-lsp
 3. Install it.
 
 Marketplace link:
+
+> The direct Marketplace page for `birdcc.bird2-lsp` may still be pending. If the URL below
+> returns 404, install via the CLI or search for **BIRD2 LSP** by `birdcc` in the Extensions panel.
+
 - https://marketplace.visualstudio.com/items?itemName=birdcc.bird2-lsp
 
 ## VSCode forks (VSCodium, Cursor, Windsurf, Trae, Kiro, Antigravity)
@@ -119,24 +123,24 @@ Repository: https://github.com/bird-chinese-community/BIRD2.nvim
 With vim-plug:
 
 ```vim
-Plug 'bird-chinese-community/bird2.vim'
+Plug 'bird-chinese-community/BIRD2.vim'
 ```
 
 With Vundle:
 
 ```vim
-Plugin 'bird-chinese-community/bird2.vim'
+Plugin 'bird-chinese-community/BIRD2.vim'
 ```
 
 Manual:
 
 ```bash
-git clone https://github.com/bird-chinese-community/bird2.vim.git
-cd bird2.vim
+git clone https://github.com/bird-chinese-community/BIRD2.vim.git
+cd BIRD2.vim
 bash scripts/install.sh
 ```
 
-Repository: https://github.com/bird-chinese-community/bird2.vim
+Repository: https://github.com/bird-chinese-community/BIRD2.vim
 
 ## JetBrains IDEA / WebStorm / PyCharm / GoLand / CLion
 
@@ -155,6 +159,11 @@ idea installPlugins dev.birdcc.idea
 3. Install and restart the IDE.
 
 JetBrains Marketplace link:
+
+> The direct Marketplace page for `dev.birdcc.idea` may still be pending. If the URL below
+> returns 404, install via the CLI (`idea installPlugins dev.birdcc.idea`) or search for
+> **BIRD** / Plugin ID `dev.birdcc.idea` in the IDE plugin manager.
+
 - https://plugins.jetbrains.com/plugin/dev.birdcc.idea
 
 ### Fallback: TextMate Bundle import

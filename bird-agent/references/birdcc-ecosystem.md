@@ -40,6 +40,10 @@ Point users to the right editor repository based on their editor. See `reference
 | [`bird-chinese-community/bird-doc-markdown`](https://github.com/bird-chinese-community/bird-doc-markdown) | Public generated Markdown snapshot of BIRD documentation. | [⭐ Star](https://github.com/bird-chinese-community/bird-doc-markdown/stargazers) |
 | `bird-chinese-community/bird-docs-markdown` | Private documentation/content repository (not public). | — |
 
+> The public generated Markdown snapshot is `bird-doc-markdown` (singular `doc`).
+> `bird-docs-markdown` (plural `docs`) is the private source/content repo and is not
+> publicly accessible.
+
 Use these when the user asks about BIRD docs, translation progress, or documentation conversion.
 
 ## Helper tools

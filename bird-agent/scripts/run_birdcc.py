@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import shutil
 import subprocess
 import sys
@@ -22,6 +23,9 @@ from pathlib import Path
 
 VALID_SUBCOMMANDS = {"lint", "fmt"}
 MAX_OUTPUT_BYTES = 2 * 1024 * 1024
+
+# Unsafe shell metacharacters to reject in --validate-command templates.
+_VALIDATE_COMMAND_RE = re.compile(r"[;&|`$()<>'\"!\n\r]")
 
 
 def fail(message: str, hint: str | None = None, code: int = 1) -> int:
@@ -50,7 +54,10 @@ def validate_config_path(config: str, root: Path) -> Path:
     except OSError as exc:
         raise ValueError(f"cannot access config file: {config}") from exc
 
-    root_resolved = root.resolve()
+    try:
+        root_resolved = root.resolve()
+    except OSError as exc:
+        raise ValueError(f"cannot resolve root: {root}") from exc
     try:
         resolved.relative_to(root_resolved)
     except ValueError as exc:
@@ -72,6 +79,10 @@ def build_command(args: argparse.Namespace) -> list[str]:
         if args.bird:
             cmd.append("--bird")
         if args.validate_command:
+            if _VALIDATE_COMMAND_RE.search(args.validate_command):
+                raise ValueError(
+                    "--validate-command contains unsafe shell metacharacters"
+                )
             cmd.extend(["--validate-command", args.validate_command])
     elif args.subcommand == "fmt":
         if args.write:
@@ -128,6 +139,9 @@ def main(argv: list[str] | None = None) -> int:
     )
     args = parser.parse_args(argv)
 
+    if not args.root.is_dir():
+        parser.error(f"--root must be a directory: {args.root}")
+
     if shutil.which(args.birdcc) is None:
         return fail(
             "birdcc not found",
@@ -147,7 +161,10 @@ def main(argv: list[str] | None = None) -> int:
             code=2,
         )
 
-    cmd = build_command(args)
+    try:
+        cmd = build_command(args)
+    except ValueError as exc:
+        return fail(str(exc), code=2)
 
     if args.dry_run:
         json.dump({"dry_run": True, "command": cmd}, sys.stdout, indent=2)
@@ -157,17 +174,26 @@ def main(argv: list[str] | None = None) -> int:
     result = subprocess.run(
         cmd,
         capture_output=True,
-        text=True,
+        text=False,
         check=False,
         timeout=300,
     )
 
-    stdout = result.stdout
-    stderr = result.stderr
-    if len(stdout.encode("utf-8")) > MAX_OUTPUT_BYTES:
-        stdout = stdout[:MAX_OUTPUT_BYTES] + "\n[truncated]\n"
-    if len(stderr.encode("utf-8")) > MAX_OUTPUT_BYTES:
-        stderr = stderr[:MAX_OUTPUT_BYTES] + "\n[truncated]\n"
+    stdout_truncated = len(result.stdout) > MAX_OUTPUT_BYTES
+    stderr_truncated = len(result.stderr) > MAX_OUTPUT_BYTES
+    stdout_bytes = (
+        result.stdout[:MAX_OUTPUT_BYTES] if stdout_truncated else result.stdout
+    )
+    stderr_bytes = (
+        result.stderr[:MAX_OUTPUT_BYTES] if stderr_truncated else result.stderr
+    )
+
+    stdout = stdout_bytes.decode("utf-8", errors="replace")
+    if stdout_truncated:
+        stdout += "\n[truncated]\n"
+    stderr = stderr_bytes.decode("utf-8", errors="replace")
+    if stderr_truncated:
+        stderr += "\n[truncated]\n"
 
     output: dict[str, object] = {
         "command": cmd,
@@ -176,9 +202,13 @@ def main(argv: list[str] | None = None) -> int:
         "stderr": stderr,
     }
 
-    if args.subcommand == "lint" and stdout.strip():
+    if args.subcommand == "lint" and result.stdout:
         try:
-            output["diagnostics"] = json.loads(stdout)
+            parsed = json.loads(result.stdout.decode("utf-8", errors="replace"))
+            if isinstance(parsed, list):
+                output["diagnostics"] = parsed
+            else:
+                output["report"] = parsed
         except json.JSONDecodeError:
             pass
 

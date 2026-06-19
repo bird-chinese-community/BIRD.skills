@@ -16,8 +16,8 @@ This repository hosts three agent skills:
 - **`birdcc-cicd`** — Helps users add the `setup-birdcc` GitHub Action to CI/CD workflows.
 
 There is no application server or runtime service in this repository. The deliverables are
-skill manifests, reference documentation, helper scripts, evaluation fixtures, and agent
-invocation metadata.
+skill manifests, reference documentation, helper scripts (where applicable), evaluation
+fixtures, and agent invocation metadata.
 
 ## Repository structure
 
@@ -118,13 +118,15 @@ uv run birdcc-installer/scripts/check_cli.py
 
 ### Skill directories
 
-All skills share the same internal layout:
+All skills share the same internal layout, except `birdcc-cicd` does not include
+`scripts/`:
 
 - `SKILL.md` — Front-matter metadata plus usage instructions. This is the single source of truth
   for when the skill should be invoked, core principles, available scripts, and output style.
 - `agents/openai.yaml` — Display name, short description, brand color, invocation policy, and
   tool dependencies.
 - `scripts/` — Small, focused Python utilities that produce JSON on stdout.
+  (`birdcc-cicd` has no scripts.)
 - `references/` — Markdown references the agent reads before handling a specific task.
 - `evals/` — Evaluation definitions and fixture files.
 

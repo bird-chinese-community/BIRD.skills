@@ -29,7 +29,7 @@ def check_executable(name: str, version_flag: str = "--version") -> dict[str, ob
         )
         output = result.stdout.strip() or result.stderr.strip()
         version = output.splitlines()[0] if output else None
-    except (OSError, subprocess.TimeoutExpired):
+    except (OSError, subprocess.TimeoutExpired, UnicodeDecodeError):
         version = None
     return {"installed": True, "version": version, "path": path}
 

@@ -75,6 +75,10 @@ specific task:
   correct repository.
 - [`references/toolchain.md`](references/toolchain.md) — Toolchain overview, the standard 7-step
   workflow, and capability reference. Start here for lint, format, validate, and debug tasks.
+- [`references/editors.md`](references/editors.md) — Editor setup routing reference. Use this to
+  point users to the `birdcc-installer` skill or a specific editor guide.
+- [`references/cicd.md`](references/cicd.md) — CI/CD routing reference. Use this to point users to
+  the `birdcc-cicd` skill or the `setup-birdcc` GitHub Action.
 - [`references/safety.md`](references/safety.md) — Safety and privacy reminders for production
   configs. Read before the user shares sensitive data.
 - [`references/examples.md`](references/examples.md) — Worked examples for common scenarios.

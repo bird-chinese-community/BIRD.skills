@@ -1,5 +1,8 @@
 {
-  "name": "bird-agent-skills",
+  "name": "bird-skills",
+  "license": "MIT",
+  "version": "1.0.0",
+  "owner": "bird-chinese-community",
   "interface": {
     "displayName": "BIRD Agent Skills",
     "shortDescription": "Agent skills for BIRD routing daemon configuration, editor setup, and CI/CD workflows."
@@ -14,7 +17,8 @@
       "policy": {
         "installation": "AVAILABLE"
       },
-      "category": "Coding"
+      "category": "Coding",
+      "description": "Write, validate, format, and debug BIRD routing daemon configs with parser-backed diagnostics."
     },
     {
       "name": "birdcc-installer",
@@ -25,7 +29,8 @@
       "policy": {
         "installation": "AVAILABLE"
       },
-      "category": "Coding"
+      "category": "Coding",
+      "description": "Install BIRD editor support and the birdcc CLI."
     },
     {
       "name": "birdcc-cicd",
@@ -36,7 +41,8 @@
       "policy": {
         "installation": "AVAILABLE"
       },
-      "category": "Coding"
+      "category": "Coding",
+      "description": "Add setup-birdcc to GitHub Actions workflows."
     }
   ]
 }

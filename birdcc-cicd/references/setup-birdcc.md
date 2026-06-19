@@ -37,6 +37,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: bird-chinese-community/setup-birdcc@v1
+        id: setup
         with:
           bird-version: "2"
       - run: birdcc fmt --check
@@ -53,6 +54,7 @@ pattern:
 
 ```yaml
 - uses: bird-chinese-community/setup-birdcc@v1
+  id: setup
   with:
     bird-version: "2"
     cache-turbo: "true"
@@ -78,6 +80,7 @@ strategy:
 steps:
   - uses: actions/checkout@v4
   - uses: bird-chinese-community/setup-birdcc@v1
+    id: setup
     with:
       bird-version: ${{ matrix.bird-version }}
       install-dependencies: "false"
