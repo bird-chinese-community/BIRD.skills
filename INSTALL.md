@@ -4,7 +4,7 @@ There are three ways to install these skills. Pick the one that matches your age
 
 | Method             | Best for                                                                                                                          | What you get                                                   |
 | ------------------ | --------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
-| **Plugin install** | Harnesses that support plugins (Claude Code, Codex CLI, Antigravity, Gemini CLI, Kimi Code, Pi, Factory Droid, Copilot CLI)       | Native install for a single harness; pick the skills you want. |
+| **Plugin install** | Harnesses that support plugins (Claude Code, Codex CLI, Antigravity, Gemini CLI, Kimi Code, Pi, Factory Droid)       | Native install for a single harness; pick the skills you want. |
 | **Skills install** | Any harness supported by `skills.sh` (universal `.agents/skills` plus 60+ agents including Cursor, OpenCode, Kimi Code CLI, etc.) | One command, then choose which agents receive the skills.      |
 | **Manual install** | Platforms not covered by plugin or `skills.sh`                                                                                    | Copy or symlink the skill folders yourself.                    |
 
@@ -87,24 +87,6 @@ gemini extensions update BIRD.skills
 
 > Note: Google is sunsetting Gemini CLI in favor of Antigravity CLI. New users should consider installing via Antigravity instead.
 
-### GitHub Copilot CLI
-
-Register the marketplace:
-
-```bash
-copilot plugin marketplace add bird-chinese-community/BIRD.skills
-```
-
-Install the skills:
-
-```bash
-copilot plugin install bird-agent@bird-skills
-copilot plugin install birdcc-installer@bird-skills
-copilot plugin install birdcc-cicd@bird-skills
-```
-
-> If `@bird-skills` does not match the marketplace alias shown by `copilot plugin marketplace add`, use that alias instead.
-
 ### Kimi Code
 
 Open Kimi Code's plugin manager with `/plugins`, then install directly from this repository:
@@ -133,7 +115,7 @@ If your harness does not support plugins, use `skills.sh` as a quick fallback. T
 npx -y skills@latest add bird-chinese-community/BIRD.skills --skill bird-agent --skill birdcc-cicd --skill birdcc-installer -a <AGENT_NAME> -y
 ```
 
-> Replace `<AGENT_NAME>` with any agent listed in the [Skills.sh README (Supported Agents)](https://raw.githubusercontent.com/vercel-labs/skills/refs/heads/main/README.md) (please read this first), such as `claude-code`, `codex`, `antigravity`, etc.
+> Replace `<AGENT_NAME>` with any agent listed in the [Skills.sh README (Supported Agents)](https://raw.githubusercontent.com/vercel-labs/skills/refs/heads/main/README.md) (please read this first), such as `claude-code`, `codex`, `github-copilot`, `antigravity`, etc.
 >
 > You can also use `-g` to install skills globally (recommended). If you have multiple agents, pass multiple `-a` arguments to specify which agents receive the skills.
 >

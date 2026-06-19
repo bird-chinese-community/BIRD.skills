@@ -4,7 +4,7 @@
 
 | 安装方式        | 适用平台                                                                                                       | 说明                                            |
 | --------------- | -------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- |
-| **Plugin 安装** | 支持插件的平台（Claude Code、Codex CLI、Antigravity、Gemini CLI、Kimi Code、Pi、Factory Droid、Copilot CLI）   | 针对单个 Agent 的原生安装；可选择需要的 skill。 |
+| **Plugin 安装** | 支持插件的平台（Claude Code、Codex CLI、Antigravity、Gemini CLI、Kimi Code、Pi、Factory Droid）   | 针对单个 Agent 的原生安装；可选择需要的 skill。 |
 | **Skills 安装** | `skills.sh` 支持的任意 Agent（通用 `.agents/skills` 及 60+ 个 Agent，包括 Cursor、OpenCode、Kimi Code CLI 等） | 一行命令安装，然后选择要部署到哪些 Agent。      |
 | **手动安装**    | 不被 plugin 或 `skills.sh` 覆盖的极少数平台                                                                    | 手动复制或软链 skill 目录。                     |
 
@@ -87,24 +87,6 @@ gemini extensions update BIRD.skills
 
 > 注意：Google 已逐步停止维护 Gemini CLI，推荐新用户直接通过 Antigravity 安装。
 
-### GitHub Copilot CLI
-
-注册插件市场：
-
-```bash
-copilot plugin marketplace add bird-chinese-community/BIRD.skills
-```
-
-安装 skills：
-
-```bash
-copilot plugin install bird-agent@bird-skills
-copilot plugin install birdcc-installer@bird-skills
-copilot plugin install birdcc-cicd@bird-skills
-```
-
-> 如果 `@bird-skills` 与 `copilot plugin marketplace add` 显示的 marketplace 别名不一致，请使用该别名。
-
 ### Kimi Code
 
 在 Kimi Code 中使用 `/plugins` 打开插件管理器，然后直接从本仓库安装：
@@ -133,7 +115,7 @@ pi -e /path/to/BIRD.skills
 npx -y skills@latest add bird-chinese-community/BIRD.skills --skill bird-agent --skill birdcc-cicd --skill birdcc-installer -a <AGENT_NAME> -y
 ```
 
-> 其中 `<AGENT_NAME>` 必须替换为 [Skills.sh README (Supported Agents)](https://raw.githubusercontent.com/vercel-labs/skills/refs/heads/main/README.md) (请先阅读此文档) 中的任意一个（例如 `claude-code`、`codex`、`antigravity` 等）。
+> 其中 `<AGENT_NAME>` 必须替换为 [Skills.sh README (Supported Agents)](https://raw.githubusercontent.com/vercel-labs/skills/refs/heads/main/README.md) (请先阅读此文档) 中的任意一个（例如 `claude-code`、`codex`、`github-copilot`、`antigravity` 等）。
 >
 > 同时，你还可以选择 `-g` 以全局安装 Skills (推荐)，如有多个 Agent，可写入多个 `-a` 参数指定分发。
 >
