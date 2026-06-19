@@ -1,0 +1,27 @@
+{
+  "name": "bird-skills",
+  "owner": {
+    "name": "bird-chinese-community"
+  },
+  "metadata": {
+    "description": "Agent skills for BIRD routing daemon configuration, editor setup, and CI/CD workflows.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "bird-agent",
+      "description": "Write, validate, format, and debug BIRD routing daemon configs with parser-backed diagnostics.",
+      "source": "./bird-agent"
+    },
+    {
+      "name": "birdcc-installer",
+      "description": "Install BIRD editor support and the birdcc CLI.",
+      "source": "./birdcc-installer"
+    },
+    {
+      "name": "birdcc-cicd",
+      "description": "Add setup-birdcc to GitHub Actions workflows.",
+      "source": "./birdcc-cicd"
+    }
+  ]
+}
