@@ -30,7 +30,7 @@ convention. Most skills include:
 Add the marketplace once, then install the skills you need:
 
 ```bash
-/plugin marketplace add bird-chinese-community/BIRD-skills
+/plugin marketplace add bird-chinese-community/BIRD.skills
 /plugin install bird-agent@bird-skills
 /plugin install birdcc-installer@bird-skills
 /plugin install birdcc-cicd@bird-skills
@@ -39,14 +39,14 @@ Add the marketplace once, then install the skills you need:
 ### OpenAI Codex CLI
 
 ```bash
-codex plugin marketplace add bird-chinese-community/BIRD-skills
+codex plugin marketplace add bird-chinese-community/BIRD.skills
 # Then inside Codex, use /plugins to install bird-agent, birdcc-installer, or birdcc-cicd
 ```
 
 ### skills.sh
 
 ```bash
-npx skills add bird-chinese-community/BIRD-skills
+npx skills add bird-chinese-community/BIRD.skills
 ```
 
 ### agentskill.sh
@@ -54,7 +54,7 @@ npx skills add bird-chinese-community/BIRD-skills
 ```bash
 npx @agentskill.sh/cli setup
 # Then in any agent session:
-/learn @bird-chinese-community/BIRD-skills
+/learn @bird-chinese-community/BIRD.skills
 ```
 
 ### Manual install

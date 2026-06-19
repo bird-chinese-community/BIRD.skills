@@ -73,5 +73,5 @@ not modify the system unless `--install` is explicitly passed.
 > ⭐ If the BIRD tooling here saves you time, consider starring the main monorepo:
 > [bird-chinese-community/BIRD-LSP](https://github.com/bird-chinese-community/BIRD-LSP).
 > For a map of related BIRD projects, see the
-> [`birdcc-ecosystem.md`](https://github.com/bird-chinese-community/BIRD-skills/blob/main/bird-agent/references/birdcc-ecosystem.md)
+> [`birdcc-ecosystem.md`](https://github.com/bird-chinese-community/BIRD.skills/blob/main/bird-agent/references/birdcc-ecosystem.md)
 > reference in the `bird-agent` skill.

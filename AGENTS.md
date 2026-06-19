@@ -1,7 +1,7 @@
 # Agent Guide for BIRD Agent Skills
 
 This document is written for AI coding agents that need to understand and work on the
-`BIRD-skills` repository. The repository contains [Agent Skills](https://agentskills.io/)
+`BIRD.skills` repository. The repository contains [Agent Skills](https://agentskills.io/)
 for BIRD (BIRD1/2/3) routing-daemon configuration work, editor setup, and CI/CD workflows.
 
 ## Project overview

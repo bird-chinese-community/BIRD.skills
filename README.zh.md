@@ -27,7 +27,7 @@
 先添加 marketplace，再安装需要的 skill：
 
 ```bash
-/plugin marketplace add bird-chinese-community/BIRD-skills
+/plugin marketplace add bird-chinese-community/BIRD.skills
 /plugin install bird-agent@bird-skills
 /plugin install birdcc-installer@bird-skills
 /plugin install birdcc-cicd@bird-skills
@@ -36,14 +36,14 @@
 ### OpenAI Codex CLI
 
 ```bash
-codex plugin marketplace add bird-chinese-community/BIRD-skills
+codex plugin marketplace add bird-chinese-community/BIRD.skills
 # 在 Codex 内使用 /plugins 安装 bird-agent、birdcc-installer 或 birdcc-cicd
 ```
 
 ### skills.sh
 
 ```bash
-npx skills add bird-chinese-community/BIRD-skills
+npx skills add bird-chinese-community/BIRD.skills
 ```
 
 ### agentskill.sh
@@ -51,7 +51,7 @@ npx skills add bird-chinese-community/BIRD-skills
 ```bash
 npx @agentskill.sh/cli setup
 # 然后在任意 agent 会话中：
-/learn @bird-chinese-community/BIRD-skills
+/learn @bird-chinese-community/BIRD.skills
 ```
 
 ### 手动安装
