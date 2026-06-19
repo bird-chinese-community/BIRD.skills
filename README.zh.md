@@ -1,30 +1,40 @@
-# BIRD Agent Skills
+# BIRD.skills（Agent Skills）
 
-本仓库托管用于 BIRD（BIRD1/2/3）路由配置、编辑器设置以及 CI/CD 工作流的 Agent Skills。
+> 面向 BIRD（BIRD1/2/3）路由守护进程的编写、验证、格式化和 CI/CD 交付的 Agent Skills。
 
-## Skills
+## 我该用哪个 skill？
 
-- [`bird-agent`](./bird-agent) — 编写、验证、格式化并调试 BIRD（BIRD1/2/3）路由守护进程配置文件。
-- [`birdcc-installer`](./birdcc-installer) — 安装 BIRD 编辑器支持与 `birdcc` 命令行工具集。
-- [`birdcc-cicd`](./birdcc-cicd) — 将 `setup-birdcc` GitHub Action 添加到 CI/CD 工作流中。
+| 你的场景                                                               | 对应 skill                               |
+| ---------------------------------------------------------------------- | ---------------------------------------- |
+| 需要编写或修复 `bird.conf`、`bird2.conf`、`bird3.conf` 或 `bird6.conf` | [`bird-agent`](./bird-agent)             |
+| 需要安装编辑器支持或 `birdcc` 命令行工具                               | [`birdcc-installer`](./birdcc-installer) |
+| 想在 GitHub Actions 中校验或格式化 BIRD 配置                           | [`birdcc-cicd`](./birdcc-cicd)           |
 
-## 使用方式
+### Skill 简介
 
-这些 skills 遵循 [Agent Skills](https://agentskills.io/) 约定。大部分 skill 包含：
+- **[`bird-agent`](./bird-agent)** — 编写、验证、格式化和调试 BIRD（BIRD1/2/3）路由守护进程配置。当用户提到 `bird.conf`、`bird2.conf`、`bird3.conf`、`bird6.conf`、`bird.config.json`、`birdcc lint/fmt`、`bird -p` 验证、BIRD filter 语法或 BGP/路由配置问题时使用。
+- **[`birdcc-installer`](./birdcc-installer)** — 安装 BIRD 编辑器支持和 `birdcc` CLI。当用户询问 VSCode/VSCodium/Cursor/Windsurf/Trae/Kiro/Antigravity/Neovim/Vim/JetBrains 的 BIRD 插件，或安装 `birdcc` 命令行工具集时使用。
+- **[`birdcc-cicd`](./birdcc-cicd)** — 将 `setup-birdcc` GitHub Action 添加到 CI/CD 工作流。当用户希望在 GitHub Actions 中 lint、format 或验证 BIRD 配置时使用。
 
-- `SKILL.md` — Skill 清单与使用说明
-- `agents/openai.yaml` — OpenAI agent 调用元数据
-- `scripts/` — 仅使用 Python 标准库、可通过 `uv run` 运行的辅助脚本
-- `references/` — 聚焦的参考指南
+## 什么是 Agent Skills？
 
-`birdcc-cicd` 没有 `scripts/` 目录，只提供 `SKILL.md`、`agents/openai.yaml`
-和 `references/`。
+[Agent Skills](https://agentskills.io/) 是可复用、可被 Agent 读取的能力包。每个 skill 包含 `SKILL.md` 清单、`agents/openai.yaml` 元数据、可选的仅使用 Python 标准库的 PEP 723 辅助脚本，以及聚焦的参考指南。
 
-## 安装
+## 面向 AI Agent 的快速开始
+
+安装 skills 后，把 Agent 指向包含 BIRD 文件的工作区，并用自然语言提问：
+
+```text
+"检查并格式化这个 bird2.conf"
+"为我的编辑器安装 BIRD 支持"
+"给 GitHub Actions 工作流加上 BIRD 校验"
+```
+
+Agent 会自动调用合适的 skill，按需运行 `birdcc lint` / `fmt`、通过 `bird -p` 验证，或生成 CI 配置片段。
+
+## 安装方式
 
 ### Claude Code
-
-先添加 marketplace，再安装需要的 skill：
 
 ```bash
 /plugin marketplace add bird-chinese-community/BIRD.skills
@@ -33,11 +43,11 @@
 /plugin install birdcc-cicd@bird-skills
 ```
 
-### OpenAI Codex CLI
+### Codex CLI
 
 ```bash
 codex plugin marketplace add bird-chinese-community/BIRD.skills
-# 在 Codex 内使用 /plugins 安装 bird-agent、birdcc-installer 或 birdcc-cicd
+# 然后在 Codex 内使用 /plugins 安装单个 skill
 ```
 
 ### skills.sh
@@ -56,9 +66,16 @@ npx @agentskill.sh/cli setup
 
 ### 手动安装
 
-克隆仓库后，将需要的 skill 目录复制或软链到 agent 的 skills 目录（例如
-`~/.claude/skills/`、`~/.codex/skills/` 或 `.agents/skills/`）。
+克隆仓库后，将需要的 skill 目录复制或软链到 Agent 的 skills 目录（例如 `~/.claude/skills/`、`~/.codex/skills/`、`.agents/skills/`）。
 
-## 许可
+## 安全提示
 
-[MIT](./LICENSE)
+BIRD 配置通常包含敏感的 AS 号、对端 IP 等信息。请勿将生产环境机密提交到仓库，或在未脱敏的情况下公开分享配置。
+
+## 贡献
+
+开发约定见 [`AGENTS.md`](./AGENTS.md)。新增 skill 时，请按现有结构创建文件夹，包含 `SKILL.md`、`agents/openai.yaml` 以及必要的 references/scripts。
+
+## 开源协议
+
+本项目采用 [MIT](./LICENSE) 许可证。
