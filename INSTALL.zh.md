@@ -2,11 +2,11 @@
 
 共有三种安装方式，请根据你使用的 Agent 平台选择：
 
-| 安装方式        | 适用平台                                                                                                            | 说明                                            |
-| --------------- | ------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- |
-| **Plugin 安装** | 支持插件的平台（Claude Code、GitHub Copilot CLI、Codex CLI、Antigravity、Gemini CLI、Kimi Code、Pi、Factory Droid） | 针对单个 Agent 的原生安装；可选择需要的 skill。 |
-| **Skills 安装** | `skills.sh` 支持的任意 Agent（通用 `.agents/skills` 及 60+ 个 Agent，包括 Cursor、OpenCode、Kimi Code CLI 等）      | 一行命令安装，然后选择要部署到哪些 Agent。      |
-| **手动安装**    | 不被 plugin 或 `skills.sh` 覆盖的极少数平台                                                                         | 手动复制或软链 skill 目录。                     |
+| 安装方式        | 适用平台                                                                                                                | 说明                                            |
+| --------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- |
+| **Plugin 安装** | 支持插件的平台（Claude Code、GitHub Copilot CLI、Codex CLI、Antigravity、Gemini CLI、Kimi Code CLI、Pi、Factory Droid） | 针对单个 Agent 的原生安装；可选择需要的 skill。 |
+| **Skills 安装** | `skills.sh` 支持的任意 Agent（通用 `.agents/skills` 及 60+ 个 Agent，包括 Cursor、OpenCode 等）                         | 一行命令安装，然后选择要部署到哪些 Agent。      |
+| **手动安装**    | 不被 plugin 或 `skills.sh` 覆盖的极少数平台                                                                             | 手动复制或软链 skill 目录。                     |
 
 > **建议：**
 >
@@ -107,9 +107,9 @@ gemini extensions update BIRD.skills
 
 > 注意：Google 已逐步停止维护 Gemini CLI，推荐新用户直接通过 Antigravity 安装。
 
-### Kimi Code
+### Kimi Code CLI (Kimi Code)
 
-在 Kimi Code 中使用 `/plugins` 打开插件管理器，然后直接从本仓库安装：
+在 Kimi Code CLI 中使用 `/plugins` 打开插件管理器，然后直接从本仓库安装：
 
 ```bash
 /plugins install https://github.com/bird-chinese-community/BIRD.skills

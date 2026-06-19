@@ -2,11 +2,11 @@
 
 There are three ways to install these skills. Pick the one that matches your agent harness:
 
-| Method             | Best for                                                                                                                           | What you get                                                   |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
-| **Plugin install** | Harnesses that support plugins (Claude Code, GitHub Copilot CLI, Codex CLI, Antigravity, Gemini CLI, Kimi Code, Pi, Factory Droid) | Native install for a single harness; pick the skills you want. |
-| **Skills install** | Any harness supported by `skills.sh` (universal `.agents/skills` plus 60+ agents including Cursor, OpenCode, Kimi Code CLI, etc.)  | One command, then choose which agents receive the skills.      |
-| **Manual install** | Platforms not covered by plugin or `skills.sh`                                                                                     | Copy or symlink the skill folders yourself.                    |
+| Method             | Best for                                                                                                                               | What you get                                                   |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| **Plugin install** | Harnesses that support plugins (Claude Code, GitHub Copilot CLI, Codex CLI, Antigravity, Gemini CLI, Kimi Code CLI, Pi, Factory Droid) | Native install for a single harness; pick the skills you want. |
+| **Skills install** | Any harness supported by `skills.sh` (universal `.agents/skills` plus 60+ agents including Cursor, OpenCode, etc.)                     | One command, then choose which agents receive the skills.      |
+| **Manual install** | Platforms not covered by plugin or `skills.sh`                                                                                         | Copy or symlink the skill folders yourself.                    |
 
 > **Recommendation:**
 >
@@ -107,7 +107,7 @@ gemini extensions update BIRD.skills
 
 > Note: Google is sunsetting Gemini CLI in favor of Antigravity CLI. New users should consider installing via Antigravity instead.
 
-### Kimi Code
+### Kimi Code CLI (Kimi Code)
 
 Open Kimi Code's plugin manager with `/plugins`, then install directly from this repository:
 
