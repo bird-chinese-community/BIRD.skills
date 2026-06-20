@@ -38,7 +38,7 @@ Do **not** use this skill for:
 
 ## Core principles
 
-1. **Collect first.** Run `scripts/collect_diagnostics.py` to gather versions,
+1. **Collect first.** Run `uv run scripts/collect_diagnostics.py --root .` to gather versions,
    detected configs, and tool availability before guessing.
 2. **Start with config/docs.** Route configuration and documented-behavior
    questions to `bird-agent` and its `query_bird_docs` MCP tool.

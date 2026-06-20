@@ -26,20 +26,39 @@ def run(cmd: list[str]) -> str | None:
             timeout=10,
             check=False,
         )
-        return result.stdout.strip() or None
+        return (result.stdout.strip() or result.stderr.strip()) or None
     except Exception as exc:
         return f"error: {exc}"
 
 
+def _is_within_root(path: Path, root: Path) -> bool:
+    """Return True if path is the same as or inside root after resolving symlinks."""
+    try:
+        path.resolve().relative_to(root.resolve())
+    except (ValueError, OSError):
+        return False
+    return True
+
+
 def detect_configs(root: Path) -> list[str]:
     configs: list[str] = []
+    seen: set[Path] = set()
     for path in root.rglob("*.conf"):
+        if path in seen:
+            continue
+        seen.add(path)
         name = path.name.lower()
-        if name.startswith("bird") and name.endswith(".conf"):
-            try:
-                configs.append(str(path.relative_to(root)))
-            except ValueError:
-                configs.append(str(path))
+        if not (name.startswith("bird") and name.endswith(".conf")):
+            continue
+        # Guard against symlink escapes and unusual filesystem entries.
+        if not path.is_file() or path.is_symlink():
+            continue
+        if not _is_within_root(path, root):
+            continue
+        try:
+            configs.append(str(path.relative_to(root)))
+        except ValueError:
+            configs.append(str(path))
     return sorted(configs)
 
 
