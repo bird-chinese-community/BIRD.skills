@@ -1,6 +1,6 @@
 {
   "name": "birdcc-cicd",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "organization": "bird-chinese-community",
   "date": "2026-06-20",
   "abstract": "Add the setup-birdcc GitHub Action to CI/CD workflows to lint, format, and validate BIRD configs on every pull request and push.",
@@ -10,6 +10,8 @@
     "https://github.com/bird-chinese-community/setup-birdcc"
   ],
   "requires": {
-    "bins": ["git"]
+    "bins": [
+      "git"
+    ]
   }
 }

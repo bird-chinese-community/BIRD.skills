@@ -1,6 +1,6 @@
 {
   "name": "bird-source-explorer",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "organization": "bird-chinese-community",
   "date": "2026-06-20",
   "abstract": "Explore the BIRD Internet Routing Daemon C source code to answer deep implementation questions and find where features, protocols, and filter functions are defined.",

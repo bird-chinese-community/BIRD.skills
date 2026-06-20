@@ -5,7 +5,7 @@
   },
   "metadata": {
     "description": "Agent skills for BIRD routing daemon configuration, editor setup, and CI/CD workflows.",
-    "version": "1.0.0"
+    "version": "1.1.0"
   },
   "plugins": [
     {
@@ -15,16 +15,30 @@
       "category": "development"
     },
     {
-      "name": "birdcc-installer",
-      "source": "./birdcc-installer",
-      "description": "Install BIRD editor support and the birdcc CLI.",
-      "category": "development"
+      "name": "bird-source-explorer",
+      "source": "./bird-source-explorer",
+      "description": "Explore the BIRD Internet Routing Daemon C source code to answer deep implementation questions and find where features, protocols, and filter functions are defined.",
+      "category": "development",
+      "version": "1.1.0"
+    },
+    {
+      "name": "bird-troubleshooting",
+      "source": "./bird-troubleshooting",
+      "description": "Diagnose complex BIRD routing-daemon problems that cross configuration, source-code, and tooling boundaries.",
+      "category": "development",
+      "version": "1.1.0"
     },
     {
       "name": "birdcc-cicd",
       "source": "./birdcc-cicd",
       "description": "Add setup-birdcc to GitHub Actions workflows.",
       "category": "integration"
+    },
+    {
+      "name": "birdcc-installer",
+      "source": "./birdcc-installer",
+      "description": "Install BIRD editor support and the birdcc CLI.",
+      "category": "development"
     }
   ]
 }

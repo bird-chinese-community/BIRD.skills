@@ -21,7 +21,7 @@ compatibility: Requires uv/uvx and internet access for Marketplace/npm/GitHub li
 license: MIT
 metadata:
   author: bird-chinese-community
-  version: "1.0.1"
+  version: "1.1.0"
   requires:
     bins:
       - birdcc

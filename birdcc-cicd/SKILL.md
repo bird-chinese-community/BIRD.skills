@@ -15,7 +15,7 @@ compatibility: Requires a GitHub repository and write access to `.github/workflo
 license: MIT
 metadata:
   author: bird-chinese-community
-  version: "1.0.1"
+  version: "1.1.0"
   requires:
     bins:
       - git

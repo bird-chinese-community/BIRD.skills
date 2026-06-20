@@ -11,7 +11,7 @@ compatibility: Requires internet access for deepwiki / Context7 / GitHub source 
 license: MIT
 metadata:
   author: bird-chinese-community
-  version: "1.0.0"
+  version: "1.1.0"
 ---
 
 # BIRD Source Explorer

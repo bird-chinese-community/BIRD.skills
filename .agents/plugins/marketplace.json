@@ -1,7 +1,7 @@
 {
   "name": "bird-skills",
   "license": "MIT",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "owner": "bird-chinese-community",
   "interface": {
     "displayName": "BIRD Agent Skills",
@@ -21,16 +21,30 @@
       "description": "Write, validate, format, and debug BIRD routing daemon configs with parser-backed diagnostics."
     },
     {
-      "name": "birdcc-installer",
+      "name": "bird-source-explorer",
       "source": {
         "source": "local",
-        "path": "./birdcc-installer"
+        "path": "./bird-source-explorer"
       },
       "policy": {
         "installation": "AVAILABLE"
       },
       "category": "Coding",
-      "description": "Install BIRD editor support and the birdcc CLI."
+      "description": "Explore the BIRD Internet Routing Daemon C source code to answer deep implementation questions and find where features, protocols, and filter functions are defined.",
+      "version": "1.1.0"
+    },
+    {
+      "name": "bird-troubleshooting",
+      "source": {
+        "source": "local",
+        "path": "./bird-troubleshooting"
+      },
+      "policy": {
+        "installation": "AVAILABLE"
+      },
+      "category": "Coding",
+      "description": "Diagnose complex BIRD routing-daemon problems that cross configuration, source-code, and tooling boundaries.",
+      "version": "1.1.0"
     },
     {
       "name": "birdcc-cicd",
@@ -43,6 +57,18 @@
       },
       "category": "Coding",
       "description": "Add setup-birdcc to GitHub Actions workflows."
+    },
+    {
+      "name": "birdcc-installer",
+      "source": {
+        "source": "local",
+        "path": "./birdcc-installer"
+      },
+      "policy": {
+        "installation": "AVAILABLE"
+      },
+      "category": "Coding",
+      "description": "Install BIRD editor support and the birdcc CLI."
     }
   ]
 }
