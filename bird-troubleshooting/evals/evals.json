@@ -1,0 +1,36 @@
+{
+  "evals": [
+    {
+      "id": "bird-troubleshooting-001",
+      "name": "Daemon startup failure",
+      "prompt": "BIRD fails to start with 'Cannot open configuration file /etc/bird.conf'. What should I check?",
+      "expected_output": "Suggests checking config path, permissions, and running birdcc lint / bird -p.",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "birdcc lint"
+        },
+        {
+          "type": "contains",
+          "value": "bird -p"
+        }
+      ]
+    },
+    {
+      "id": "bird-troubleshooting-002",
+      "name": "Config passes lint but behavior wrong",
+      "prompt": "My BIRD3 config passes lint but BGP routes are not being exported. How do I debug?",
+      "expected_output": "Collects diagnostics, checks docs, and may escalate to source explorer for export logic.",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "collect_diagnostics"
+        },
+        {
+          "type": "contains",
+          "value": "bird-source-explorer"
+        }
+      ]
+    }
+  ]
+}

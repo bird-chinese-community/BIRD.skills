@@ -1,0 +1,15 @@
+{
+  "name": "bird-troubleshooting",
+  "version": "1.0.0",
+  "organization": "bird-chinese-community",
+  "date": "2026-06-20",
+  "abstract": "Diagnose complex BIRD routing-daemon problems that cross configuration, source-code, and tooling boundaries.",
+  "license": "MIT",
+  "references": [
+    "https://github.com/bird-chinese-community/BIRD.skills",
+    "https://github.com/bird-chinese-community/BIRD-LSP"
+  ],
+  "requires": {
+    "bins": []
+  }
+}

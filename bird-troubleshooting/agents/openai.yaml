@@ -1,0 +1,12 @@
+interface:
+  display_name: 'BIRD Troubleshooting'
+  short_description: 'Diagnose complex BIRD daemon problems by orchestrating config, source, and tooling diagnostics.'
+  icon_small: ''
+  icon_large: ''
+  brand_color: '#F59E0B'
+
+policy:
+  allow_implicit_invocation: true
+
+dependencies:
+  tools: []
